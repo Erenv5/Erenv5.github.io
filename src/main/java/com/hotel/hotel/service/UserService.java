@@ -1,6 +1,8 @@
 package com.hotel.hotel.service;
 
 import com.hotel.hotel.domain.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface UserService {
 
@@ -32,5 +34,11 @@ public interface UserService {
      * @return
      */
     User getUserById(Long id);
+
+    User getUserByUsername(String username);
+
+    User registerUser(User user);
+
+    Page<User> getUserByName(String name, Pageable pageable);
 
 }

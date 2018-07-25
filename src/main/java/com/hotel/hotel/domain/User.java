@@ -21,6 +21,7 @@ import java.util.List;
 
 @Entity
 public class User implements UserDetails,Serializable {
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -32,6 +33,7 @@ public class User implements UserDetails,Serializable {
     @Column(nullable = false)
     private String name;
 
+    @javax.validation.constraints.NotEmpty(message = "新的 性别不能为空")
     @Column(nullable = false)
     private String sex;
 
@@ -53,6 +55,11 @@ public class User implements UserDetails,Serializable {
     @Column(nullable = false)
     private Long intergal;
 
+    /**
+     * 会员等级：
+     * norm 普通会员
+     * vip  VIP会员
+     */
     @NotEmpty(message = "等级不能为空")
     @Column(nullable = false)
     private String level;
@@ -110,13 +117,14 @@ public class User implements UserDetails,Serializable {
      * @param address
      * @param email
      */
-    public User(String name, String sex, String password, String telephone, String address, String email) {
+    public User(String name, String sex, String password, String telephone, String address, String email, String remark) {
         this.name = name;
         this.sex = sex;
         this.password = password;
         this.telephone = telephone;
         this.address = address;
         this.email = email;
+        this.remark = remark;
         this.level = "oral";
         this.intergal = new Long(0);
     }
@@ -149,6 +157,7 @@ public class User implements UserDetails,Serializable {
 
     /**
      * 将 List<Authority> 转化为 List<SimpleGrantedAuthority> ，否则前端拿不到角色列表名称
+     * 前端只能展示字符串
      * @return
      */
     @Override

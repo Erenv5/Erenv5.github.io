@@ -7,9 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -29,21 +31,26 @@ public class MemberController {
     @Autowired
     private RoomService roomService;
 
-
-    User user = new User();
-
+    @PostMapping("/regist")
+    public ModelAndView regist(
+            @RequestParam(value = "password") String password,
+            @RequestParam(value = "name") String name,
+            @RequestParam(value = "sex") String sex,
+            @RequestParam(value = "telephone") String telephone,
+            @RequestParam(value = "address",required = false,defaultValue = "") String address,
+            @RequestParam(value = "email",required = false,defaultValue = "") String email,
+             @RequestParam(value = "remark",required = false,defaultValue = "") String remark
+            ){
+            User user = new User(name,sex,password,telephone,address,email,remark);
+//            userService
+        return null;
+    }
 
     @GetMapping("/login")
     public ModelAndView login(
             @RequestParam(value = "id", required = true) Long id,
             @RequestParam(value = "password", required =  true) String password,
             Model model){
-
-        user.setId(id);
-        user.setPassword(password);
-        model.addAttribute("user",user);
-
-
 
         Boolean login;
         String message;
@@ -56,8 +63,6 @@ public class MemberController {
             if (user.getPassword() == password) {
                 login = true;
                 message = "登录成功";
-
-
                 //想要登陆成功后 重定向到 order 控制器
                 return new ModelAndView("users/member/loginSuccess","usermodel",model);
             } else {
