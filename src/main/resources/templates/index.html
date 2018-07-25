@@ -1,13 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Welcome</title>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<head th:replace="~{fragments/header :: header}">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 </head>
 <body>
-    <div>
-        <a href="/login">登录</a>
-        <a href="/regist">注册</a>
-    </div>
+<div class="container blog-content-container">
+    <a href="/login" th:href="@{/login}" class="btn btn-default">登录</a>
+    <a href="/regist" th:href="@{/regist}" class="btn btn-default">注册</a>
+</div>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
+<!-- JavaScript -->
+<script src="../../js/index.js" th:src="@{/js/index.js}"></script>
+
+
 </body>
 </html>

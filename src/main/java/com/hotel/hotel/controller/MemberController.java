@@ -1,4 +1,6 @@
 package com.hotel.hotel.controller;
+
+
 import com.hotel.hotel.domain.Room;
 import com.hotel.hotel.domain.User;
 import com.hotel.hotel.service.RoomService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.jws.WebParam;
 import java.util.List;
 
 /**
@@ -31,30 +34,104 @@ public class MemberController {
     @Autowired
     private RoomService roomService;
 
+
+    /**
+     * 新建用户
+     * @param user
+     * @param authorityId
+     * @return
+     */
+//    @PostMapping
+//    public ResponseEntity<Response> create(User user, Long authorityId) {
+//
+//        if(user.getId() == null) {
+//            user.setEncodePassword(user.getPassword()); // 加密密码
+//        }else {
+//            // 判断密码是否做了变更
+//            User originalUser = userService.getUserById(user.getId());
+//            String rawPassword = originalUser.getPassword();
+//            PasswordEncoder  encoder = new BCryptPasswordEncoder();
+//            String encodePasswd = encoder.encode(user.getPassword());
+//            boolean isMatch = encoder.matches(rawPassword, encodePasswd);
+//            if (!isMatch) {
+//                user.setEncodePassword(user.getPassword());
+//            }else {
+//                user.setPassword(user.getPassword());
+//            }
+//        }
+//
+//        try {
+//            userService.save(user);
+//        }  catch (ConstraintViolationException e)  {
+//            return ResponseEntity.ok().body(new Response(false, ConstraintViolationExceptionHandler.getMessage(e)));
+//        }
+//
+//        return ResponseEntity.ok().body(new Response(true, "处理成功", user));
+//    }
+
+
+    /**
+     * 用户自行注册
+     * @param password
+     * @param name
+     * @param sex
+     * @param telephone
+     * @param address
+     * @param email
+     * @param remark
+     * @return
+     */
+
     @PostMapping("/regist")
     public ModelAndView regist(
+            @RequestParam(value = "username") String username,
             @RequestParam(value = "password") String password,
             @RequestParam(value = "name") String name,
             @RequestParam(value = "sex") String sex,
             @RequestParam(value = "telephone") String telephone,
             @RequestParam(value = "address",required = false,defaultValue = "") String address,
             @RequestParam(value = "email",required = false,defaultValue = "") String email,
-             @RequestParam(value = "remark",required = false,defaultValue = "") String remark
+            @RequestParam(value = "remark",required = false,defaultValue = "") String remark,
+            Model model
             ){
-            User user = new User(name,sex,password,telephone,address,email,remark);
-//            userService
-        return null;
+
+
+        Boolean regist;
+        String message;
+
+        //用户已存在
+        User user = userService.getUserByUsername(username);
+        if(user != null){
+            regist = false;
+            message = new String("此用户名已存在，请您直接登录");
+
+            model.addAttribute("regist",regist);
+            model.addAttribute("registMessage",message);
+            return new ModelAndView("/login","userModel",model);
+        }
+
+        user = new User(username,name,sex,password,telephone,address,email,remark);
+        userService.registerUser(user);
+        return new ModelAndView("/member/roomOrder");
     }
 
+    /**
+     * 用户登录
+     * @param id
+     * @param password
+     * @param model
+     * @return
+     */
     @GetMapping("/login")
     public ModelAndView login(
-            @RequestParam(value = "id", required = true) Long id,
-            @RequestParam(value = "password", required =  true) String password,
+            @RequestParam(value = "username", required = true) String username,
+            @RequestParam(value = "password", required = true) String password,
             Model model){
 
         Boolean login;
         String message;
-        User user = userService.getUserById(id);
+
+        User user = userService.getUserByUsername(username);
         if(user == null) {
             login = false;
             message = "登录失败，用户名不存在";
@@ -64,15 +141,15 @@ public class MemberController {
                 login = true;
                 message = "登录成功";
                 //想要登陆成功后 重定向到 order 控制器
-                return new ModelAndView("users/member/loginSuccess","usermodel",model);
+                return new ModelAndView("/member/roomOrder","usermodel",model);
             } else {
                 login = false;
                 message = "登录失败，密码错误";
             }
         }
         model.addAttribute("login",login);
-        model.addAttribute("message",message);
-        return new ModelAndView("users/member/login","usermodel",model);
+        model.addAttribute("loginMessage",message);
+        return new ModelAndView("/login","usermodel",model);
     }
 
     /**
@@ -130,7 +207,7 @@ public class MemberController {
         model.addAttribute("listPres",listP);
 
 
-        return new ModelAndView("users/member/roomOrder","userModel",model);
+        return new ModelAndView("member/member/roomOrder","userModel",model);
     }
 
 }

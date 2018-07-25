@@ -1,17 +1,11 @@
 package com.hotel.hotel.domain;
 
 import org.hibernate.validator.constraints.NotEmpty;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
-import java.util.List;
 
 /**
  * User 实体
@@ -20,13 +14,18 @@ import java.util.List;
  */
 
 @Entity
-public class User implements UserDetails,Serializable {
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotEmpty(message = "姓名不能为空")
+    @Size(min = 3,max = 50)
+    @Column(nullable = false)
+    private String username;
 
     @NotEmpty(message = "姓名不能为空")
     @Size(min = 2,max = 20)
@@ -73,10 +72,20 @@ public class User implements UserDetails,Serializable {
     @Column
     private String remark;
 
-    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinTable(name="user_member",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
-        inverseJoinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"))
-    private List<Authority> authorities;
+//    public void setAuthorities(List<Authority> authorities) {
+//        this.authorities = authorities;
+//    }
+//
+//    public void setEncodePassword(String password) {
+//        PasswordEncoder encoder = new BCryptPasswordEncoder();
+//        String encodePasswd = encoder.encode(password);
+//        this.password = encodePasswd;
+//    }
+
+//    @ManyToMany(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
+//    @JoinTable(name="user_member",joinColumns = @JoinColumn(name="user_id",referencedColumnName = "id"),
+//        inverseJoinColumns = @JoinColumn(name = "member_id", referencedColumnName = "id"))
+//    private List<Authority> authorities;
 
     /**
      * 此构造用于前台注册
@@ -110,6 +119,7 @@ public class User implements UserDetails,Serializable {
 
     /**
      * 此构造用于会员自行注册
+     * @Param username
      * @param name
      * @param sex
      * @param password
@@ -117,7 +127,8 @@ public class User implements UserDetails,Serializable {
      * @param address
      * @param email
      */
-    public User(String name, String sex, String password, String telephone, String address, String email, String remark) {
+    public User(String username,String name, String sex, String password, String telephone, String address, String email, String remark) {
+        this.username = username;
         this.name = name;
         this.sex = sex;
         this.password = password;
@@ -129,7 +140,7 @@ public class User implements UserDetails,Serializable {
         this.intergal = new Long(0);
     }
 
-    public User(){}
+    protected User(){}
 
     public Long getId() {
         return id;
@@ -160,43 +171,43 @@ public class User implements UserDetails,Serializable {
      * 前端只能展示字符串
      * @return
      */
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
-        for(GrantedAuthority authority : this.getAuthorities()){
-            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
-        }
-        return simpleGrantedAuthorities;
-    }
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        List<SimpleGrantedAuthority> simpleGrantedAuthorities = new ArrayList<>();
+//        for(GrantedAuthority authority : this.getAuthorities()){
+//            simpleGrantedAuthorities.add(new SimpleGrantedAuthority(authority.getAuthority()));
+//        }
+//        return simpleGrantedAuthorities;
+//    }
 
     public String getPassword() {
         return password;
     }
 
-    @Override
-    public String getUsername() {
-        return null;
-    }
-
-    @Override
-    public boolean isAccountNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isAccountNonLocked() {
-        return true;
-    }
-
-    @Override
-    public boolean isCredentialsNonExpired() {
-        return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return true;
-    }
+//    @Override
+//    public String getUsername() {
+//        return null;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isAccountNonLocked() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isCredentialsNonExpired() {
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean isEnabled() {
+//        return true;
+//    }
 
     public void setPassword(String password) {
         this.password = password;

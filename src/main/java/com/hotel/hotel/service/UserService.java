@@ -37,7 +37,7 @@ public interface UserService {
 
     User getUserByUsername(String username);
 
-    User registerUser(User user);
+    void registerUser(User user);
 
     Page<User> getUserByName(String name, Pageable pageable);
 
