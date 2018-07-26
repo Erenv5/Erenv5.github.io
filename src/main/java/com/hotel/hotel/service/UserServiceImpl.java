@@ -53,4 +53,22 @@ public class UserServiceImpl implements UserService{
         name = "%"+name+"%";
         return userRepository.findByNameLike(name,pageable);
     }
+
+    @Override
+    public boolean usernameExist(String username) {
+        User user = userRepository.findByUsername(username);
+        if(user == null)
+            return false;
+        else
+            return true;
+    }
+
+    @Override
+    public boolean telExist(String telephone) {
+        User user = userRepository.findByTelephone(telephone);
+        if(user == null)
+            return false;
+        else
+            return true;
+    }
 }

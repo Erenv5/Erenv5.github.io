@@ -117,7 +117,7 @@ public class MemberController {
 
     /**
      * 用户登录
-     * @param id
+     * @param username
      * @param password
      * @param model
      * @return
@@ -128,26 +128,26 @@ public class MemberController {
             @RequestParam(value = "password", required = true) String password,
             Model model){
 
-        Boolean login;
+        Boolean loginError;
         String message;
 
         User user = userService.getUserByUsername(username);
         if(user == null) {
-            login = false;
+            loginError = true;
             message = "登录失败，用户名不存在";
         }
         else {
-            if (user.getPassword() == password) {
-                login = true;
-                message = "登录成功";
-                //想要登陆成功后 重定向到 order 控制器
+            if (user.getPassword().compareTo(password) == 1) {
+                //把该用户放model
+                model.addAttribute("theUser",user);
+                //登陆成功后 重定向到 order 控制器
                 return new ModelAndView("/member/roomOrder","usermodel",model);
             } else {
-                login = false;
+                loginError = true;
                 message = "登录失败，密码错误";
             }
         }
-        model.addAttribute("login",login);
+        model.addAttribute("loginError",loginError);
         model.addAttribute("loginMessage",message);
         return new ModelAndView("/login","usermodel",model);
     }

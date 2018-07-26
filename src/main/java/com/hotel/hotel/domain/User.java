@@ -1,8 +1,8 @@
 package com.hotel.hotel.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Date;
@@ -19,30 +19,30 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotEmpty(message = "姓名不能为空")
+    @NotBlank(message = "姓名不能为空")
     @Size(min = 3,max = 50)
     @Column(nullable = false)
     private String username;
 
-    @NotEmpty(message = "姓名不能为空")
+    @NotBlank(message = "密码不能为空")
+    @Column(nullable = false)
+    private String password;
+
+    @NotBlank(message = "联系方式不能为空")
+    @Column(nullable = false, unique = true)
+    private String telephone;
+
+    @NotBlank(message = "姓名不能为空")
     @Size(min = 2,max = 20)
     @Column(nullable = false)
     private String name;
 
-    @javax.validation.constraints.NotEmpty(message = "新的 性别不能为空")
+    @NotBlank(message = "性别不能为空")
     @Column(nullable = false)
     private String sex;
-
-    @NotEmpty(message = "密码不能为空")
-    @Column(nullable = false)
-    private String password;
-
-    @NotEmpty(message = "联系方式不能为空")
-    @Column(nullable = false, unique = true)
-    private String telephone;
 
     @Column
     private String address;
@@ -50,7 +50,7 @@ public class User implements Serializable {
     @Column
     private String email;
 
-    @NotEmpty(message = "积分不能为空")
+    @NotNull(message = "积分不能为空")
     @Column(nullable = false)
     private Long intergal;
 
@@ -59,7 +59,7 @@ public class User implements Serializable {
      * norm 普通会员
      * vip  VIP会员
      */
-    @NotEmpty(message = "等级不能为空")
+    @NotBlank(message = "等级不能为空")
     @Column(nullable = false)
     private String level;
 
@@ -101,9 +101,10 @@ public class User implements Serializable {
      * @param last_order_time
      * @param remark
      */
-    public User(String name, String sex, String password, String telephone, String address, String email, Long intergal, String level, Date last_housing_time, Date last_order_time, String remark) {
+    public User(String name, String sex, String username, String password, String telephone, String address, String email, Long intergal, String level, Date last_housing_time, Date last_order_time, String remark) {
         this.name = name;
         this.sex = sex;
+        this.username = username;
         this.password = password;
         this.telephone = telephone;
         this.address = address;
@@ -137,7 +138,9 @@ public class User implements Serializable {
         this.email = email;
         this.remark = remark;
         this.level = "oral";
-        this.intergal = new Long(0);
+        this.intergal = 0L;
+        this.last_housing_time=null;
+        this.last_order_time=null;
     }
 
     protected User(){}
@@ -276,9 +279,6 @@ public class User implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
-
-
-
 
 
 }

@@ -41,4 +41,7 @@ public interface UserService {
 
     Page<User> getUserByName(String name, Pageable pageable);
 
+    boolean usernameExist(String username);
+
+    boolean telExist(String telephone);
 }

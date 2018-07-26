@@ -22,4 +22,11 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     User findByUsername(String username);
 
+    /**
+     * 根据电话查询用户
+     * @param telephone
+     * @return
+     */
+    User findByTelephone(String telephone);
+
 }
