@@ -16,21 +16,19 @@ public class RoomServiceImpl implements RoomService {
     @Autowired
     private RoomRespository roomRespository;
 
-    @Transactional
     @Override
-    public Page<Room> getRoomsByStatusAndType(String type, String status, Pageable pageable){
-        Page<Room> rooms = roomRespository.findByTypeAndStatus(type, status, pageable);
-        return rooms;
+    public List<Room> getRoomsByStatusAndType(String status, String type){
+        return roomRespository.findByTypeAndStatus(type, status);
     }
 
-    @Transactional
     @Override
-    public List<Room> getAllRooms() {
-        List<Room> rooms = roomRespository.findAll();
-        for(Room room : roomRespository.findAll()){
-            rooms.add(room);
-        }
-        return rooms;
+    public List<Room> getAllRooms(Pageable pageable) {
+        return roomRespository.findAll();
+    }
+
+    @Override
+    public List<Room> getRoomsByStatus(String status) {
+        return roomRespository.findByStatus(status);
     }
 
 

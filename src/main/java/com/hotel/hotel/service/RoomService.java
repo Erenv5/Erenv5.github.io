@@ -14,14 +14,22 @@ public interface RoomService {
      * @param type
      * @return
      */
-    Page<Room> getRoomsByStatusAndType(String status, String type, Pageable pageable);
+    List<Room> getRoomsByStatusAndType(String status, String type);
 
 
     /**
      * 获取所有房间信息
      * @return
      */
-    List<Room> getAllRooms();
+    List<Room> getAllRooms(Pageable pageable);
+
+
+    /**
+     * 获取所有空房
+     * @param status
+     * @return
+     */
+    List<Room> getRoomsByStatus(String status);
 
 
 

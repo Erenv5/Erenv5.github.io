@@ -48,7 +48,7 @@ public class Room implements Serializable {
     private String price;
 
     @Column(nullable = false)
-    private String oralMemberPrice;
+    private String normMemberPrice;
 
     @Column(nullable = false)
     private String vipMemberPrice;
@@ -56,9 +56,6 @@ public class Room implements Serializable {
     @Column
     private String remark;
 
-    public void ordered(){
-        this.status = ORDERED;
-    }
 
     /**
      * 此构造用于扩建新房间
@@ -67,17 +64,17 @@ public class Room implements Serializable {
      * @param status
      * @param floor
      * @param price
-     * @param oralMemberPrice
+     * @param normMemberPrice
      * @param vipMemberPrice
      * @param remark
      */
-    public Room(String roomId, String type, String status, String floor, String price, String oralMemberPrice, String vipMemberPrice, String remark) {
+    public Room(String roomId, String type, String status, String floor, String price, String normMemberPrice, String vipMemberPrice, String remark) {
         this.roomId = roomId;
         this.type = type;
         this.status = status;
         this.floor = floor;
         this.price = price;
-        this.oralMemberPrice = oralMemberPrice;
+        this.normMemberPrice = normMemberPrice;
         this.vipMemberPrice = vipMemberPrice;
         this.remark = remark;
     }
@@ -86,14 +83,14 @@ public class Room implements Serializable {
      * 此构造用于修改房间信息
      * @param roomId
      * @param price
-     * @param oralMemberPrice
+     * @param normMemberPrice
      * @param vipMemberPrice
      * @param remark
      */
-    public Room(String roomId, String price, String oralMemberPrice, String vipMemberPrice, String remark) {
+    public Room(String roomId, String price, String normMemberPrice, String vipMemberPrice, String remark) {
         this.roomId = roomId;
         this.price = price;
-        this.oralMemberPrice = oralMemberPrice;
+        this.normMemberPrice = normMemberPrice;
         this.vipMemberPrice = vipMemberPrice;
         this.remark = remark;
     }
@@ -140,12 +137,12 @@ public class Room implements Serializable {
         this.price = price;
     }
 
-    public String getOralMemberPrice() {
-        return oralMemberPrice;
+    public String getNormMemberPrice() {
+        return normMemberPrice;
     }
 
-    public void setOralMemberPrice(String oralMemberPrice) {
-        this.oralMemberPrice = oralMemberPrice;
+    public void setNormMemberPrice(String normMemberPrice) {
+        this.normMemberPrice = normMemberPrice;
     }
 
     public String getVipMemberPrice() {

@@ -4,6 +4,8 @@ import com.hotel.hotel.domain.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import java.util.List;
+
 public interface UserService {
 
     /**
@@ -39,7 +41,7 @@ public interface UserService {
 
     void registerUser(User user);
 
-    Page<User> getUserByName(String name, Pageable pageable);
+    List<User> getUserByName(String name);
 
     boolean usernameExist(String username);
 

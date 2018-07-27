@@ -137,7 +137,7 @@ public class User implements Serializable {
         this.address = address;
         this.email = email;
         this.remark = remark;
-        this.level = "oral";
+        this.level = "norm";
         this.intergal = 0L;
         this.last_housing_time=null;
         this.last_order_time=null;
@@ -280,5 +280,11 @@ public class User implements Serializable {
         this.remark = remark;
     }
 
+    public String getUsername() {
+        return username;
+    }
 
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }

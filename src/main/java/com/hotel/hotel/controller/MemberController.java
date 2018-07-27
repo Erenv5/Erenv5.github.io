@@ -121,7 +121,7 @@ public class MemberController {
     }
 
     /**
-     * 用户登录
+     * 用户登录后转房间列表
      * @param username
      * @param password
      * @param model
@@ -143,7 +143,7 @@ public class MemberController {
                 //把该用户放model
                 model.addAttribute("theUser",user);
                 //登陆成功后 重定向到 order 控制器
-                return new ModelAndView("/member/roomOrder","userModel",model);
+                return new ModelAndView("redirect:order","userModel",model);
             } else {
                 message = "登录失败，密码错误";
             }
@@ -169,46 +169,36 @@ public class MemberController {
      * @return
      */
     @GetMapping("/order")
-    public ModelAndView orderRoom(
-            @RequestParam(value = "pageIndex", required = false, defaultValue = "0") int pageIndex,
-            @RequestParam(value = "pageSize", required = false, defaultValue = "10") int pageSize,
-            Model model) {
-        //获取 Pageable 对象
-        Pageable pageable = new PageRequest(pageIndex,pageSize);
+    public ModelAndView orderRoom(Model model) {
+
 
         //获取不同种类的空房间列表
+        //获取全部空房
+        List<Room> listA = roomService.getRoomsByStatus("empty"); //当前所在页面数据列表
+        model.addAttribute("listAll",listA);
+
         //获取单人间空房
-        Page<Room> pageS = roomService.getRoomsByStatusAndType("empty","single",pageable);
-        List<Room> listS = pageS.getContent();  //当前所在页面数据列表
-        model.addAttribute("pageSingle",pageS);
+        List<Room> listS = roomService.getRoomsByStatusAndType("empty","single");
         model.addAttribute("listSingle",listS);
 
         //获取双人间空房
-        Page<Room> pageD = roomService.getRoomsByStatusAndType("empty","double",pageable);
-        List<Room> listD = pageS.getContent();  //当前所在页面数据列表
-        model.addAttribute("pageDouble",pageD);
+        List<Room> listD = roomService.getRoomsByStatusAndType("empty","double");
         model.addAttribute("listDouble",listD);
 
         //获取四人间空房
-        Page<Room> pageQ = roomService.getRoomsByStatusAndType("empty","quad",pageable);
-        List<Room> listQ = pageS.getContent();  //当前所在页面数据列表
-        model.addAttribute("pageQued",pageQ);
+        List<Room> listQ = roomService.getRoomsByStatusAndType("empty","quad");
         model.addAttribute("listQued",listQ);
 
         //获取钟点房空房
-        Page<Room> pageH = roomService.getRoomsByStatusAndType("empty","hourly",pageable);
-        List<Room> listH = pageS.getContent();  //当前所在页面数据列表
-        model.addAttribute("pageHourly",pageH);
+        List<Room> listH = roomService.getRoomsByStatusAndType("empty","hourly");
         model.addAttribute("listHourly",listH);
 
         //获取总统套房空房
-        Page<Room> pageP = roomService.getRoomsByStatusAndType("empty","pres",pageable);
-        List<Room> listP = pageS.getContent();  //当前所在页面数据列表
-        model.addAttribute("pagePres",pageP);
+        List<Room> listP = roomService.getRoomsByStatusAndType("empty","pres");
         model.addAttribute("listPres",listP);
 
 
-        return new ModelAndView("member/roomOrder","userModel",model);
+        return new ModelAndView("room/roomList","userModel",model);
     }
 
 }

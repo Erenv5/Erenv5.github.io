@@ -8,6 +8,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class UserServiceImpl implements UserService{
 
@@ -49,9 +51,9 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public Page<User> getUserByName(String name, Pageable pageable) {
+    public List<User> getUserByName(String name) {
         name = "%"+name+"%";
-        return userRepository.findByNameLike(name,pageable);
+        return userRepository.findByNameLike(name);
     }
 
     @Override
