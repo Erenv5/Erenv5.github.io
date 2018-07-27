@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -95,24 +94,30 @@ public class MemberController {
             Model model
             ){
 
-
-        Boolean regist;
         String message;
 
         //用户已存在
-        User user = userService.getUserByUsername(username);
-        if(user != null){
-            regist = false;
+        if(userService.usernameExist(username)){
             message = new String("此用户名已存在，请您直接登录");
 
-            model.addAttribute("regist",regist);
             model.addAttribute("registMessage",message);
-            return new ModelAndView("/login","userModel",model);
+            model.addAttribute("loginMessage",null);
+            return new ModelAndView("login","userModel",model);
         }
 
-        user = new User(username,name,sex,password,telephone,address,email,remark);
+        //手机已被使用
+        if(userService.telExist(telephone)){
+            message = new String("此手机号已被使用");
+
+            model.addAttribute("registMessage",message);
+            return new ModelAndView("regist","userModel",model);
+        }
+
+        User user = new User(username,name,sex,password,telephone,address,email,remark);
         userService.registerUser(user);
-        return new ModelAndView("/member/roomOrder");
+        model.addAttribute("registMessage",null);
+        model.addAttribute("loginMessage",null);
+        return new ModelAndView("login","userModel",model);
     }
 
     /**
@@ -127,29 +132,25 @@ public class MemberController {
             @RequestParam(value = "username", required = true) String username,
             @RequestParam(value = "password", required = true) String password,
             Model model){
-
-        Boolean loginError;
         String message;
 
         User user = userService.getUserByUsername(username);
         if(user == null) {
-            loginError = true;
             message = "登录失败，用户名不存在";
         }
         else {
-            if (user.getPassword().compareTo(password) == 1) {
+            if (user.getPassword().equals(password)) {
                 //把该用户放model
                 model.addAttribute("theUser",user);
                 //登陆成功后 重定向到 order 控制器
-                return new ModelAndView("/member/roomOrder","usermodel",model);
+                return new ModelAndView("/member/roomOrder","userModel",model);
             } else {
-                loginError = true;
                 message = "登录失败，密码错误";
             }
         }
-        model.addAttribute("loginError",loginError);
         model.addAttribute("loginMessage",message);
-        return new ModelAndView("/login","usermodel",model);
+        model.addAttribute("registMessage",null);
+        return new ModelAndView("login","userModel",model);
     }
 
     /**
@@ -207,7 +208,7 @@ public class MemberController {
         model.addAttribute("listPres",listP);
 
 
-        return new ModelAndView("member/member/roomOrder","userModel",model);
+        return new ModelAndView("member/roomOrder","userModel",model);
     }
 
 }

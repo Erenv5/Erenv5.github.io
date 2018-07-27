@@ -45,7 +45,7 @@ dependencies {
 	// 添加  Apache Commons Lang 依赖
 	compile('org.apache.commons:commons-lang3:3.5')
 	// 添加 Spring Boot 开发工具依赖
-//	compile("org.springframework.boot:spring-boot-devtools")
+	compile("org.springframework.boot:spring-boot-devtools")
 
 
 }

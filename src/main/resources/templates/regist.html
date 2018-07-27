@@ -45,6 +45,10 @@
         <h2 class="form-signin-heading">注册</h2>
 
         <div class="form-group col-md-5">
+            <label th:if="*{userModel.registMessage} ne null" th:text="*{userModel.registMessage}" >
+        </div>
+
+        <div class="form-group col-md-5">
             <label for="username" class="col-form-label">账号</label>
             <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号，至少3个字符，至多20个">
         </div>
@@ -53,17 +57,18 @@
             <input type="tel" class="form-control" id="telephone" name="telephone" maxlength="20" placeholder="请输入手机号">
         </div>
         <div class="form-group col-md-5">
-            <label class="col-form-label">性别</label>
-            <div class="btn-group" data-toggle="buttons">
-                <label class="btn btn-primary">
-                    <input type="checkbox" name="sex" id="male" value="male"> 男
+            <label class="col-form-label">性别</label> <br>
+            <div class="custom-radio">
+                <label class="btn btn-default">
+                    <input type="radio" name="sex" id="male" value="male"> 男
                 </label>
-                <label class="btn btn-primary">
-                    <input type="checkbox" name="sex" id="female" value="female"> 女
+                <label class="btn btn-default">
+                    <input type="radio" name="sex" id="female" value="female"> 女
                 </label>
-                <label class="btn btn-primary">
-                    <input type="checkbox" name="sex" id="other" value="other" checked> 其他
+                <label class="btn btn-default">
+                    <input type="radio" name="sex" id="other" value="other" checked> 其他
                 </label>
+
             </div>
         </div>
         <div class="form-group col-md-5">

@@ -63,19 +63,19 @@
                 <button type="submit" class="btn btn-primary">登录</button>
             </div>
 
-            <script>
-                //这里判断两个值是否为空，不为空则显示。
+            <div class="form-group col-md-5">
+                <label th:if="*{userModel.loginMessage} ne null" th:text="*{userModel.loginMessage}" >
+            </div>
 
-                //var login = userModel.getAttribute("login");
-                //var loginMessage = userModel.getAttribute("loginMessage");
 
-                //userModel.getAttribute("regist");
-                //userModel.getAttribute("registMessage");
-            </script>
+            <div class="form-group col-md-5">
+                <label th:if="*{userModel.registMessage} ne null" th:text="*{userModel.registMessage}" >
+            </div>
+
         </form>
 
         <div class="form-group col-md-5">
-            没有账户？<a type="button" th:href="@{regist}" class="btn btn-default">去注册</a>
+            没有账户？<a type="button" th:href="@{/regist}" class="btn btn-default">去注册</a>
         </div>
     </div>
 
