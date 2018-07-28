@@ -2,9 +2,10 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- Tether core CSS -->
+    <meta charset="UTF-8">
+    <title>预定失败</title>
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -24,8 +25,8 @@
 
     <!-- bootstrap chosen CSS -->
     <link href="../static/css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
-<!---->
-     <!--toastr CSS -->
+    <!---->
+    <!--toastr CSS -->
     <link href="../static/css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
 
     <!-- jQuery image cropping plugin CSS -->
@@ -36,21 +37,18 @@
     <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
           rel="stylesheet">
     <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-<br><br>
-<div class="text-center">
-    <h1> 欢迎光临 </h1>
-    <div class="container blog-content-container">
-        <a href="login" th:href="@{login}" class="btn btn-default">登录</a>
-        <a href="regist" th:href="@{regist}" class="btn btn-default">注册</a>
+
+<div class="panel panel-default">
+    <div class="panel-heading">您已预订过房间</div>
+        <div class="container">
+        <a class="btn btn-primary" th:href="@{'/member/myorder/' + ${userModel.orderInfo.id} }">查看我的预定信息</a>
     </div>
 </div>
-
-
-<!-- JavaScript -->
-<script src="../static/js/index.js" th:src="@{../static/js/index.js}"></script>
-
 
 </body>
 </html>

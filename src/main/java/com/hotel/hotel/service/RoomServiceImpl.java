@@ -31,5 +31,10 @@ public class RoomServiceImpl implements RoomService {
         return roomRespository.findByStatus(status);
     }
 
+    @Override
+    public Room getRoomById(String id) {
+        return roomRespository.getOne(id);
+    }
+
 
 }

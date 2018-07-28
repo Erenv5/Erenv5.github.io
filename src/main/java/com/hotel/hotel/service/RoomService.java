@@ -31,6 +31,12 @@ public interface RoomService {
      */
     List<Room> getRoomsByStatus(String status);
 
+    /**
+     * 通过 ID 查找房间
+     * @param id
+     * @return
+     */
+    Room getRoomById(String id);
 
 
 }

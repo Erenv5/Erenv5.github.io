@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>房间信息</title>
+    <title>房间预定</title>
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -40,12 +40,32 @@
     <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-
 <div class="panel panel-default">
-    <div class="panel-heading">查看房间具体信息</div>
+    <div class="panel-heading">您的预订信息</div>
     <div class="panel-body align-content-center">
 
-        <form class="form-horizontal" th:object="${userModel.room}">
+        <form class="form-horizontal" th:object="${userModel.roomOrderInfo}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">预订单号</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{infoId}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">姓名</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{name}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">电话</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{tel}"></p>
+                </div>
+            </div>
+
             <div class="form-group">
                 <label class="col-sm-2 control-label">房间号</label>
                 <div class="col">
@@ -54,51 +74,16 @@
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">类型</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{type}"></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">状态</label>
+                <label class="col-sm-2 control-label">预定状态</label>
                 <div class="col">
                     <p class="form-control-static" th:text="*{status}"></p>
                 </div>
             </div>
 
             <div class="form-group">
-                <label class="col-sm-2 control-label">楼层</label>
+                <label class="col-sm-2 control-label">预定时间</label>
                 <div class="col">
-                    <p class="form-control-static" th:text="*{floor}"></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">价格</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{price}"></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">普通会员价</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{normMemberPrice}"></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">vip会员价</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{vipMemberPrice}"></p>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label class="col-sm-2 control-label">您的会员等级</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="${userModel.user.level}"></p>
+                    <p class="form-control-static" th:text="*{orderTime}"></p>
                 </div>
             </div>
 
@@ -106,11 +91,11 @@
 
         <div class="container">
             <a class="btn btn-primary" th:href="@{'/member/list/' + ${userModel.user.id} }">返回</a>
-            <a class="btn btn-primary" th:href="@{'/member/order/' + ${userModel.room.roomId} +'/'+ ${userModel.user.id} }">预定</a>
             <a class="btn btn-primary" th:href="@{/login}">退出</a>
         </div>
     </div>
 </div>
+
 
 </body>
 </html>

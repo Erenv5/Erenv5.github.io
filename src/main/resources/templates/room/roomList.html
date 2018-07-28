@@ -66,12 +66,12 @@
                     </tr>
 
                     <tr th:each="room : ${userModel.listAll}">
-                        <td th:text="${room.roomId}"></td>
+                        <td th:text="*{room.roomId}"></td>
                         <td th:text="*{room.type}"></td>
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
             </div>
@@ -92,7 +92,7 @@
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
 
@@ -114,7 +114,7 @@
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
             </div>
@@ -135,7 +135,7 @@
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
             </div>
@@ -156,7 +156,7 @@
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
             </div>
@@ -177,7 +177,7 @@
                         <td th:text="*{room.price}"></td>
                         <td th:text="*{room.normMemberPrice}"></td>
                         <td th:text="*{room.vipMemberPrice}"></td>
-                        <td><a th:href="@{'/member/'+*{room.roomId}}">查看</a></td>
+                        <td><a th:href="@{'/member/info/' + *{room.roomId} +'/'+ ${userModel.user.id}}">查看</a></td>
                     </tr>
                 </table>
             </div>
