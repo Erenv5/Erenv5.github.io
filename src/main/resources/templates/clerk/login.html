@@ -3,6 +3,7 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
+    <meta charset="UTF-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <!-- Tether core CSS -->
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
@@ -24,8 +25,8 @@
 
     <!-- bootstrap chosen CSS -->
     <link href="../static/css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
-<!---->
-     <!--toastr CSS -->
+    <!---->
+    <!--toastr CSS -->
     <link href="../static/css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
 
     <!-- jQuery image cropping plugin CSS -->
@@ -36,25 +37,40 @@
     <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
           rel="stylesheet">
     <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+    <title>员工登录</title>
 </head>
+
 <body>
-<br><br>
-<div class="text-center">
-    <h1> 欢迎光临 </h1>
-    <div class="container blog-content-container">
-        <a href="login" th:href="@{login}" class="btn btn-default">登录</a>
-        <a href="regist" th:href="@{regist}" class="btn btn-default">注册</a>
-    </div>
+<div class="container blog-content-container">
+    <form th:action="@{/clerk/login}" method="get">
+        <br>
+        <h2 class="form-signin-heading">请登录</h2>
 
-    <div class="container blog-content-container">
-        <a href="clerk/login" th:href="@{clerk}" class="btn btn-default">员工登录</a>
-    </div>
+        <div class="form-group col-md-5">
+            <label for="username" class="col-form-label">账号</label>
+            <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号">
+        </div>
+
+        <div class="form-group col-md-5">
+            <label for="password" class="col-form-label">密码</label>
+            <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="请输入密码" >
+        </div>
+
+        <div class="form-group col-md-5">
+            <button type="submit" class="btn btn-primary">登录</button>
+        </div>
+
+        <div class="form-group col-md-5">
+            <label th:if="*{userModel.loginMessage} ne null" th:text="*{userModel.loginMessage}" >
+        </div>
+
+        <div class="form-group col-md-5">
+            <label th:if="*{userModel.registMessage} ne null" th:text="*{userModel.registMessage}" >
+        </div>
+
+    </form>
+
+
 </div>
-
-
-<!-- JavaScript -->
-<script src="../static/js/index.js" th:src="@{../static/js/index.js}"></script>
-
-
 </body>
 </html>

@@ -1,7 +1,5 @@
 package com.hotel.hotel.domain;
 
-import org.hibernate.validator.constraints.NotEmpty;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -14,7 +12,12 @@ public class Clerk implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotEmpty(message = "密码不能为空")
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
     @Column(nullable = false)
     private String password;
 
@@ -24,7 +27,6 @@ public class Clerk implements Serializable {
      * fontDesk 前台
      * manager  经理
      */
-    @NotEmpty(message = "权限不能为空")
     @Column(nullable = false)
     private String permission;
 
@@ -37,13 +39,31 @@ public class Clerk implements Serializable {
      * @param permission
      * @param remark
      */
-    public Clerk(String password, String permission, String remark) {
+    public Clerk(String name, String username, String password, String permission, String remark) {
+        this.name = name;
+        this.username = username;
         this.password = password;
         this.permission = permission;
         this.remark = remark;
     }
 
     protected Clerk(){}
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public Long getId() {
         return id;

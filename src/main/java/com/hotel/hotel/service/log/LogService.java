@@ -1,7 +1,6 @@
-package com.hotel.hotel.service;
+package com.hotel.hotel.service.log;
 
 import com.hotel.hotel.domain.Log;
-import com.hotel.hotel.repository.LogRepository;
 
 public interface LogService {
     //保存 Log

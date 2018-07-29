@@ -1,9 +1,9 @@
-package com.hotel.hotel.service;
+package com.hotel.hotel.service.room;
 
 
 import com.hotel.hotel.domain.RoomOrderInfo;
 
-public interface RoomOrderInfoService {
+public interface RoomLiveInfoService {
     //手机号查看用户是否已预订过房间
     boolean telNoOrdered(String tel);
 

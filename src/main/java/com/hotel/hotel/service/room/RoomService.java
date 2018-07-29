@@ -1,4 +1,4 @@
-package com.hotel.hotel.service;
+package com.hotel.hotel.service.room;
 
 import com.hotel.hotel.domain.Room;
 import org.springframework.data.domain.Page;

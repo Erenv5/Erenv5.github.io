@@ -5,7 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class RoomOrderInfo implements Serializable {
+public class RoomLiveInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -16,7 +16,7 @@ public class RoomOrderInfo implements Serializable {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String tel;
 
     @Column(nullable = false)
@@ -26,7 +26,16 @@ public class RoomOrderInfo implements Serializable {
     private String status;
 
     @Column(nullable = false)
-    private Date orderTime;
+    private Date liveTime;
+
+    @Column(nullable = false)
+    private String deposit;
+
+    @Column(nullable = false)
+    private String operator;
+
+    @Column(nullable = false)
+    private String price;
 
     @Column
     private String remark;
@@ -37,19 +46,25 @@ public class RoomOrderInfo implements Serializable {
      * @param tel
      * @param roomId
      * @param status
-     * @param orderTime
+     * @param liveTime
+     * @param deposit
+     * @param operator
+     * @param price
      * @param remark
      */
-    public RoomOrderInfo(String name, String tel, String roomId, String status, Date orderTime, String remark) {
+    public RoomLiveInfo(String name, String tel, String roomId, String status, Date liveTime,String deposit,String operator, String price, String remark) {
         this.name = name;
         this.tel = tel;
         this.roomId = roomId;
         this.status = status;
-        this.orderTime = orderTime;
+        this.liveTime = liveTime;
+        this.deposit = deposit;
+        this.operator = operator;
+        this.price = price;
         this.remark = remark;
     }
 
-    protected RoomOrderInfo(){}
+    protected RoomLiveInfo(){}
 
     public Long getInfoId() {
         return infoId;
@@ -96,10 +111,42 @@ public class RoomOrderInfo implements Serializable {
     }
 
     public Date getOrderTime() {
-        return orderTime;
+        return liveTime;
     }
 
     public void setOrderTime(Date orderTime) {
-        this.orderTime = orderTime;
+        this.liveTime = orderTime;
+    }
+
+    public Date getLiveTime() {
+        return liveTime;
+    }
+
+    public void setLiveTime(Date liveTime) {
+        this.liveTime = liveTime;
+    }
+
+    public String getDeposit() {
+        return deposit;
+    }
+
+    public void setDeposit(String deposit) {
+        this.deposit = deposit;
+    }
+
+    public String getOperator() {
+        return operator;
+    }
+
+    public void setOperator(String operator) {
+        this.operator = operator;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

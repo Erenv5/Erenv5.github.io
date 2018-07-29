@@ -5,18 +5,18 @@ import com.hotel.hotel.domain.Log;
 import com.hotel.hotel.domain.Room;
 import com.hotel.hotel.domain.RoomOrderInfo;
 import com.hotel.hotel.domain.User;
-import com.hotel.hotel.service.LogService;
-import com.hotel.hotel.service.RoomOrderInfoService;
-import com.hotel.hotel.service.RoomService;
-import com.hotel.hotel.service.UserService;
+import com.hotel.hotel.service.log.LogService;
+import com.hotel.hotel.service.room.RoomOrderInfoService;
+import com.hotel.hotel.service.room.RoomService;
+import com.hotel.hotel.service.member.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.sql.Date;
 import java.util.List;
+import java.util.Date;
 
 /**
  * Member 控制器
@@ -223,7 +223,7 @@ public class MemberController {
         }
 
         //保存新的预定信息
-        RoomOrderInfo roomOrderInfo = roomOrderInfoService.save(new RoomOrderInfo(user.getName(),user.getTelephone(),room.getRoomId(),"ordered",new java.util.Date(),null));
+        RoomOrderInfo roomOrderInfo = roomOrderInfoService.save(new RoomOrderInfo(user.getName(),user.getTelephone(),room.getRoomId(),"ordered",new Date(),null));
 
         //保存预定 Log
         Log log = logService.save(new Log(userId,roomId,"预定信息"));

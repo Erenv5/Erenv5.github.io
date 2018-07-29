@@ -22,25 +22,20 @@ public class User implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = "姓名不能为空")
     @Size(min = 3,max = 50)
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String username;
 
-    @NotBlank(message = "密码不能为空")
     @Column(nullable = false)
     private String password;
 
-    @NotBlank(message = "联系方式不能为空")
     @Column(nullable = false, unique = true)
     private String telephone;
 
-    @NotBlank(message = "姓名不能为空")
     @Size(min = 2,max = 20)
     @Column(nullable = false)
     private String name;
 
-    @NotBlank(message = "性别不能为空")
     @Column(nullable = false)
     private String sex;
 
@@ -50,7 +45,6 @@ public class User implements Serializable {
     @Column
     private String email;
 
-    @NotNull(message = "积分不能为空")
     @Column(nullable = false)
     private Long intergal;
 
@@ -59,7 +53,6 @@ public class User implements Serializable {
      * norm 普通会员
      * vip  VIP会员
      */
-    @NotBlank(message = "等级不能为空")
     @Column(nullable = false)
     private String level;
 

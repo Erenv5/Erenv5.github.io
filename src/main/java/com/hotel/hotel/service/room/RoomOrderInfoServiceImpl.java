@@ -1,4 +1,4 @@
-package com.hotel.hotel.service;
+package com.hotel.hotel.service.room;
 
 import com.hotel.hotel.domain.RoomOrderInfo;
 import com.hotel.hotel.repository.RoomOrderInfoRespository;

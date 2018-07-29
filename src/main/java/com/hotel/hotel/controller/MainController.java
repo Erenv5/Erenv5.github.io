@@ -1,7 +1,7 @@
 package com.hotel.hotel.controller;
 
 import com.hotel.hotel.domain.User;
-import com.hotel.hotel.service.UserService;
+import com.hotel.hotel.service.member.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

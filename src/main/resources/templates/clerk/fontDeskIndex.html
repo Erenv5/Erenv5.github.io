@@ -3,8 +3,8 @@
       xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <!-- Tether core CSS -->
+    <meta charset="UTF-8">
+    <title>前台</title>
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -24,8 +24,8 @@
 
     <!-- bootstrap chosen CSS -->
     <link href="../static/css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
-<!---->
-     <!--toastr CSS -->
+    <!---->
+    <!--toastr CSS -->
     <link href="../static/css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
 
     <!-- jQuery image cropping plugin CSS -->
@@ -36,24 +36,45 @@
     <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
           rel="stylesheet">
     <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<br><br>
-<div class="text-center">
-    <h1> 欢迎光临 </h1>
-    <div class="container blog-content-container">
-        <a href="login" th:href="@{login}" class="btn btn-default">登录</a>
-        <a href="regist" th:href="@{regist}" class="btn btn-default">注册</a>
-    </div>
 
-    <div class="container blog-content-container">
-        <a href="clerk/login" th:href="@{clerk}" class="btn btn-default">员工登录</a>
+<div class="panel panel-default">
+    <div class="panel-heading">预定转入住</div>
+    <div class="col-lg-6">
+        <form th:action="@{ '/clerk/live' + ${userModel.clerk.id} }" class="input-group">
+            <input type="text" class="form-control" placeholder="输入预定手机号">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default" ">查询</button>
+            </span>
+        </form>
+
+        <div class="form-group col-md-5">
+            <label th:if="*{userModel.messageFromLive} ne null" th:text="*{userModel.messageFromLive}" >
+        </div>
+
     </div>
 </div>
 
+<div class="panel panel-default">
+    <div class="panel-heading">结账</div>
+    <div class="col-lg-6">
 
-<!-- JavaScript -->
-<script src="../static/js/index.js" th:src="@{../static/js/index.js}"></script>
+        <div class="input-group">
+            <input type="text" class="form-control" placeholder="输入入住手机号">
+            <span class="input-group-btn">
+                <a class="btn btn-default" >查询</a>
+            </span>
+        </div>
+
+        <div class="form-group col-md-5">
+            <label th:if="*{userModel.messageFromLeave} ne null" th:text="*{userModel.messageFromLeave}" >
+        </div>
+
+    </div>
+</div>
 
 
 </body>

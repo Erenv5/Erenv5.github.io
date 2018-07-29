@@ -1,4 +1,4 @@
-package com.hotel.hotel.service;
+package com.hotel.hotel.service.member;
 
 import com.hotel.hotel.domain.User;
 import com.hotel.hotel.repository.UserRepository;
