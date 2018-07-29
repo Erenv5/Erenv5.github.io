@@ -1,9 +1,11 @@
 package com.hotel.hotel.controller;
 
 
+import com.hotel.hotel.domain.Log;
 import com.hotel.hotel.domain.Room;
 import com.hotel.hotel.domain.RoomOrderInfo;
 import com.hotel.hotel.domain.User;
+import com.hotel.hotel.service.LogService;
 import com.hotel.hotel.service.RoomOrderInfoService;
 import com.hotel.hotel.service.RoomService;
 import com.hotel.hotel.service.UserService;
@@ -29,7 +31,11 @@ public class MemberController {
     @Autowired
     private RoomService roomService;
 
+    @Autowired
     private RoomOrderInfoService roomOrderInfoService;
+
+    @Autowired
+    private LogService logService;
 
 
     /**
@@ -205,6 +211,9 @@ public class MemberController {
         User user = userService.getUserById(userId);
         Room room = roomService.getRoomById(roomId);
 
+        model.addAttribute("user",user);
+        model.addAttribute("room",room);
+
         if(!roomOrderInfoService.telNoOrdered(user.getTelephone())) {
             RoomOrderInfo roomOrderInfo = roomOrderInfoService.getInfoByTel(user.getTelephone());
             model.addAttribute("orderInfo",roomOrderInfo);
@@ -212,7 +221,16 @@ public class MemberController {
             //用户手机已被预定
             return new ModelAndView("room/roomOrderJudge", "userModel", model);
         }
-        RoomOrderInfo roomOrderInfo = new RoomOrderInfo(user.getName(),user.getTelephone(),room.getRoomId(),"ordered",new java.util.Date(),null);
+
+        //保存新的预定信息
+        RoomOrderInfo roomOrderInfo = roomOrderInfoService.save(new RoomOrderInfo(user.getName(),user.getTelephone(),room.getRoomId(),"ordered",new java.util.Date(),null));
+
+        //保存预定 Log
+        Log log = logService.save(new Log(userId,roomId,"预定信息"));
+
+        //修改房间状态信息
+        roomService.changeStatus(roomId,"ordered");
+
         model.addAttribute("roomOrderInfo", roomOrderInfo);
         //用户手机未被预定
         return new ModelAndView("room/roomOrder","userModel",model);
@@ -228,8 +246,9 @@ public class MemberController {
     @GetMapping("/myorder/{id}")
     public ModelAndView myOrder(@PathVariable("id") Long id, Model model){
         RoomOrderInfo roomOrderInfo = roomOrderInfoService.getInfoById(id);
-        model.addAttribute("orderInfo",roomOrderInfo);
+        User user = userService.getUserByTel(roomOrderInfo.getTel());
+        model.addAttribute("roomOrderInfo",roomOrderInfo);
+        model.addAttribute("user",user);
         return new ModelAndView("room/roomOrder","userModel",model);
     }
-
 }

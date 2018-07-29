@@ -12,7 +12,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * 根据用户的 姓名 查询用户信息
      * @param name
-     * @param pageable
      * @return
      */
     List<User> findByNameLike(String name);

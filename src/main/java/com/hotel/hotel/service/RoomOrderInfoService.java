@@ -12,4 +12,7 @@ public interface RoomOrderInfoService {
 
     //根据手机号查询预定信息
     RoomOrderInfo getInfoByTel(String tel);
+
+    //保存信息
+    RoomOrderInfo save(RoomOrderInfo roomOrderInfo);
 }

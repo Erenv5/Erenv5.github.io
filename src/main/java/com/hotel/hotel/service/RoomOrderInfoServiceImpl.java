@@ -4,6 +4,9 @@ import com.hotel.hotel.domain.RoomOrderInfo;
 import com.hotel.hotel.repository.RoomOrderInfoRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
 
 @Service
 public class RoomOrderInfoServiceImpl implements RoomOrderInfoService {
@@ -21,12 +24,18 @@ public class RoomOrderInfoServiceImpl implements RoomOrderInfoService {
 
     @Override
     public RoomOrderInfo getInfoById(Long id) {
-        RoomOrderInfo roomOrderInfo = roomOrderInfoRespository.getOne(id);
-        return roomOrderInfo;
+        Optional<RoomOrderInfo> roomOrderInfoOptional = roomOrderInfoRespository.findById(id);
+        return roomOrderInfoOptional.get();
     }
 
     @Override
     public RoomOrderInfo getInfoByTel(String tel) {
         return roomOrderInfoRespository.findByTel(tel);
+    }
+
+    @Transactional
+    @Override
+    public RoomOrderInfo save(RoomOrderInfo roomOrderInfo) {
+        return roomOrderInfoRespository.save(roomOrderInfo);
     }
 }

@@ -95,14 +95,10 @@ public class Room implements Serializable {
         this.remark = remark;
     }
 
-    public Room(){}
+    protected Room(){}
 
     public String getRoomId() {
         return roomId;
-    }
-
-    public void setRoomId(String roomId) {
-        this.roomId = roomId;
     }
 
     public String getType() {

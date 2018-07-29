@@ -46,8 +46,9 @@
 <div class="panel panel-default">
     <div class="panel-heading">您已预订过房间</div>
         <div class="container">
-        <a class="btn btn-primary" th:href="@{'/member/myorder/' + ${userModel.orderInfo.id} }">查看我的预定信息</a>
-    </div>
+            <a class="btn btn-primary" th:href="@{'/member/myorder/' + ${userModel.orderInfo.infoId}}">查看我的预定信息</a>
+            <a class="btn btn-primary" th:href="@{/login}">退出</a>
+        </div>
 </div>
 
 </body>

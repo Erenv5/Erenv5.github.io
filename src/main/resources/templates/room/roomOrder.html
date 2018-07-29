@@ -45,49 +45,49 @@
     <div class="panel-body align-content-center">
 
         <form class="form-horizontal" th:object="${userModel.roomOrderInfo}">
-            <div class="form-group">
-                <label class="col-sm-2 control-label">预订单号</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{infoId}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">预订单号</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{infoId}"></p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">姓名</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{name}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">姓名</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{name}"></p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">电话</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{tel}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">电话</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{tel}"></p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">房间号</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{roomId}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">房间号</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{roomId}"></p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">预定状态</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{status}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">预定状态</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{status}"></p>
             </div>
+        </div>
 
-            <div class="form-group">
-                <label class="col-sm-2 control-label">预定时间</label>
-                <div class="col">
-                    <p class="form-control-static" th:text="*{orderTime}"></p>
-                </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">预定时间</label>
+            <div class="col">
+                <p class="form-control-static" th:text="*{orderTime}"></p>
             </div>
+        </div>
 
-        </form>
+    </form>
 
         <div class="container">
             <a class="btn btn-primary" th:href="@{'/member/list/' + ${userModel.user.id} }">返回</a>

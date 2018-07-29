@@ -36,5 +36,19 @@ public class RoomServiceImpl implements RoomService {
         return roomRespository.getOne(id);
     }
 
+    @Transactional
+    @Override
+    public Room changeStatus(String roomId, String status) {
+        Room room = roomRespository.getOne(roomId);
+        room.setStatus(status);
+        return roomRespository.save(room);
+    }
+
+    @Transactional
+    @Override
+    public Room saveOrUpdateRoom(Room room) {
+        return roomRespository.save(room);
+    }
+
 
 }

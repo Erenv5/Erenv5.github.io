@@ -1,10 +1,13 @@
 package com.hotel.hotel.domain;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
 
 @Entity
-public class RoomOrderInfo {
+public class RoomOrderInfo implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -44,6 +47,12 @@ public class RoomOrderInfo {
         this.status = status;
         this.orderTime = orderTime;
         this.remark = remark;
+    }
+
+    protected RoomOrderInfo(){}
+
+    public Long getInfoId() {
+        return infoId;
     }
 
     public String getName() {

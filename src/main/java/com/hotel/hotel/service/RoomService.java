@@ -38,5 +38,18 @@ public interface RoomService {
      */
     Room getRoomById(String id);
 
+    /**
+     * 修改房间状态信息
+     * @param roomId
+     * @param status
+     * @return
+     */
+    Room changeStatus(String roomId,String status);
 
+    /**
+     * 保存或更新房间信息
+     * @param room
+     * @return
+     */
+    Room saveOrUpdateRoom(Room room);
 }

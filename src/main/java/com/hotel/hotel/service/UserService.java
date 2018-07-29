@@ -37,6 +37,13 @@ public interface UserService {
      */
     User getUserById(Long id);
 
+    /**
+     * 根据电话查询用户
+     * @param tel
+     * @return
+     */
+    User getUserByTel(String tel);
+
     User getUserByUsername(String username);
 
     void registerUser(User user);

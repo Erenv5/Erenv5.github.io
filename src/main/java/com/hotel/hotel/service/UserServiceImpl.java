@@ -3,8 +3,6 @@ package com.hotel.hotel.service;
 import com.hotel.hotel.domain.User;
 import com.hotel.hotel.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,6 +35,11 @@ public class UserServiceImpl implements UserService{
     @Override
     public User getUserById(Long id) {
         return userRepository.findById(id).get();
+    }
+
+    @Override
+    public User getUserByTel(String tel) {
+        return userRepository.findByTelephone(tel);
     }
 
     @Override

@@ -1,18 +1,19 @@
 package com.hotel.hotel.domain;
 
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.io.Serializable;
 
-public class Log {
+@Entity
+public class Log implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private String logId;
+    private Long logId;
 
     @Column(nullable = false)
-    private String userId;
+    private Long userId;
 
     @Column(nullable = false)
     private String RoomId;
@@ -26,17 +27,23 @@ public class Log {
      * @param roomId
      * @param remark
      */
-    public Log(String userId, String roomId, String remark) {
+    public Log(Long userId, String roomId, String remark) {
         this.userId = userId;
         RoomId = roomId;
         this.remark = remark;
     }
 
-    public String getUserId() {
+    protected Log(){}
+
+    public Long getLogId() {
+        return logId;
+    }
+
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(String userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
