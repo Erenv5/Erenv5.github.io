@@ -15,4 +15,7 @@ public interface RoomOrderInfoService {
 
     //保存信息
     RoomOrderInfo save(RoomOrderInfo roomOrderInfo);
+
+    //删除信息
+    RoomOrderInfo delete(Long id);
 }

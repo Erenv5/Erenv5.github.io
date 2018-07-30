@@ -38,4 +38,12 @@ public class RoomOrderInfoServiceImpl implements RoomOrderInfoService {
     public RoomOrderInfo save(RoomOrderInfo roomOrderInfo) {
         return roomOrderInfoRespository.save(roomOrderInfo);
     }
+
+    @Transactional
+    @Override
+    public RoomOrderInfo delete(Long id) {
+        return roomOrderInfoRespository.deleteByInfoId(id);
+    }
+
+
 }

@@ -1,18 +1,21 @@
 package com.hotel.hotel.service.room;
 
 
-import com.hotel.hotel.domain.RoomOrderInfo;
+import com.hotel.hotel.domain.RoomLiveInfo;
 
 public interface RoomLiveInfoService {
-    //手机号查看用户是否已预订过房间
-    boolean telNoOrdered(String tel);
+    //保存入住信息
+    RoomLiveInfo save(RoomLiveInfo roomLiveInfo);
 
-    //根据预定 ID 获取预订信息
-    RoomOrderInfo getInfoById(Long id);
+    //手机号有没有对应入住信息
+    boolean telNoLived(String tel);
 
-    //根据手机号查询预定信息
-    RoomOrderInfo getInfoByTel(String tel);
+    //手机号对应入住信息
+    RoomLiveInfo getByTel(String tel);
 
-    //保存信息
-    RoomOrderInfo save(RoomOrderInfo roomOrderInfo);
+    //根据 ID 查询入住信息
+    RoomLiveInfo getById(Long id);
+
+    //根据 ID 删除入住信息
+    RoomLiveInfo delete(Long id);
 }

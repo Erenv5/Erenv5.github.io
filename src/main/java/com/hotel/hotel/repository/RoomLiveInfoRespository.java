@@ -6,4 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RoomLiveInfoRespository extends JpaRepository<RoomLiveInfo, Long> {
 
     RoomLiveInfo findByTel(String tel);
+
+    RoomLiveInfo deleteByInfoId(Long id);
 }

@@ -1,15 +1,19 @@
 package com.hotel.hotel.controller;
 
 
-import com.hotel.hotel.domain.Clerk;
-import com.hotel.hotel.domain.RoomOrderInfo;
+import com.hotel.hotel.domain.*;
 import com.hotel.hotel.service.clerk.ClerkService;
+import com.hotel.hotel.service.member.UserService;
+import com.hotel.hotel.service.room.RoomLiveInfoService;
 import com.hotel.hotel.service.room.RoomOrderInfoService;
+import com.hotel.hotel.service.room.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Date;
 
 @Controller
 @RequestMapping("/clerk")
@@ -20,6 +24,15 @@ public class ClerkController {
 
     @Autowired
     private RoomOrderInfoService roomOrderInfoService;
+
+    @Autowired
+    private RoomLiveInfoService roomLiveInfoService;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private RoomService roomService;
 
     @GetMapping
     public ModelAndView index(Model model){
@@ -101,15 +114,99 @@ public class ClerkController {
 
         //表单中手机号没有预定房间
         if(roomOrderInfoService.telNoOrdered(tel)){
-            messageFromLive = "该手机没有预定房间";
+            messageFromLive = "该用户没有预定房间";
             model.addAttribute("messageFromLive",messageFromLive);
             model.addAttribute("messageFromLeave",messageFromLeave);
             return new ModelAndView("clerk/fontDeskIndex","userModel",model);
         }
 
-
+        //手机号预定了房间,到的页面可以转入住
         RoomOrderInfo roomOrderInfo = roomOrderInfoService.getInfoByTel(tel);
-        return new ModelAndView("");
+        model.addAttribute("roomOrderInfo",roomOrderInfo);
+        model.addAttribute("clerk",clerk);
+        return new ModelAndView("room/roomOrderInfo","userModel",model);
     }
 
+    /**
+     * 入住信息结账
+     * 入住信息不存在 转前台主界面
+     * 入住信息存在 转 roomLiveInfo
+     * @param clerkId
+     * @param tel
+     * @param model
+     * @return
+     */
+    @PostMapping("/leave/{id}")
+    public ModelAndView leave(@PathVariable("id") Long clerkId,
+                              @RequestParam("tel") String tel,
+                              Model model){
+
+        String messageFromLeave;
+        String messageFromLive = null;
+
+        Clerk clerk = clerkService.getById(clerkId);
+        model.addAttribute("clerk",clerk);
+
+        //表单中手机号没有入住信息
+        if(roomLiveInfoService.telNoLived(tel)){
+            messageFromLeave = "该用户没有入住房间";
+            model.addAttribute("messageFromLive",messageFromLive);
+            model.addAttribute("messageFromLeave",messageFromLeave);
+            return new ModelAndView("clerk/fontDeskIndex","userModel",model);
+        }
+
+        // 手机号有入住信息，到的页面点结账
+        RoomLiveInfo roomLiveInfo = roomLiveInfoService.getByTel(tel);
+        model.addAttribute("roomLiveInfo",roomLiveInfo);
+        model.addAttribute("clerk",clerk);
+        return new ModelAndView("room/roomLiveInfo","userModel",model);
+    }
+    /**
+     * 入住信息创建保存
+     * 返回前台主界面
+     * @param clerkId
+     * @param infoId
+     * @param model
+     * @return
+     */
+    @GetMapping("/live/{clerkId}/{infoId}")
+    public ModelAndView toLive(@PathVariable("clerkId") Long clerkId,
+                               @PathVariable("infoId") Long infoId,
+                               Model model) {
+        //获取各种对象
+        Clerk clerk = clerkService.getById(clerkId);
+        RoomOrderInfo roomOrderInfo = roomOrderInfoService.getInfoById(infoId);
+        User user = userService.getUserByTel(roomOrderInfo.getTel());
+        Room room = roomService.getRoomById(roomOrderInfo.getRoomId());
+
+        //更改房间状态
+        roomService.changeStatus(roomOrderInfo.getRoomId(),"lived");
+
+        //创建并保存 live 并删除 order
+        RoomLiveInfo roomLiveInfo = new RoomLiveInfo(user.getName(),user.getTelephone(),roomOrderInfo.getRoomId(),room.getStatus(),new Date(),"",
+                clerk.getName(),room.getPrice(),"");
+        roomLiveInfoService.save(roomLiveInfo);
+        roomOrderInfoService.delete(infoId);
+        model.addAttribute("info",roomLiveInfo);
+        return new ModelAndView("clerk/fontDeskIndex","userModel",model);
+    }
+
+    @GetMapping("/leave/{clerkId}/{infoId}")
+    public ModelAndView toLeave(@PathVariable("clerkId") Long clerkId,
+                                @PathVariable("infoId") Long infoId,
+                                Model model){
+        //获取各种对象
+        Clerk clerk = clerkService.getById(clerkId);
+        RoomLiveInfo roomLiveInfo = roomLiveInfoService.getById(infoId);
+        User user = userService.getUserByTel(roomLiveInfo.getTel());
+        Room room = roomService.getRoomById(roomLiveInfo.getRoomId());
+
+        //更改房间状态
+        roomService.changeStatus(roomLiveInfo.getRoomId(),"empty");
+
+        //删除 live
+        roomLiveInfoService.delete(infoId);
+
+        return new ModelAndView("clerk/fontDeskIndex","userModel",model);
+    }
 }

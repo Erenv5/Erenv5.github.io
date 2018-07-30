@@ -1,6 +1,8 @@
 package com.hotel.hotel.service.room;
 
+import com.hotel.hotel.domain.RoomLiveInfo;
 import com.hotel.hotel.domain.RoomOrderInfo;
+import com.hotel.hotel.repository.RoomLiveInfoRespository;
 import com.hotel.hotel.repository.RoomOrderInfoRespository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,30 +14,34 @@ import java.util.Optional;
 public class RoomLiveInfoServiceImpl implements RoomLiveInfoService {
 
     @Autowired
-    private RoomOrderInfoRespository roomOrderInfoRespository;
+    private RoomLiveInfoRespository roomLiveInfoRespository;
+
+    @Transactional
+    @Override
+    public RoomLiveInfo save(RoomLiveInfo roomLiveInfo) {
+        return roomLiveInfoRespository.save(roomLiveInfo);
+    }
 
     @Override
-    public boolean telNoOrdered(String tel) {
-        RoomOrderInfo roomOrderInfo = roomOrderInfoRespository.findByTel(tel);
-        if(roomOrderInfo != null)
+    public boolean telNoLived(String tel) {
+        if(roomLiveInfoRespository.findByTel(tel) != null)
             return false;
         return true;
     }
 
     @Override
-    public RoomOrderInfo getInfoById(Long id) {
-        Optional<RoomOrderInfo> roomOrderInfoOptional = roomOrderInfoRespository.findById(id);
-        return roomOrderInfoOptional.get();
+    public RoomLiveInfo getByTel(String tel) {
+        return roomLiveInfoRespository.findByTel(tel);
     }
 
     @Override
-    public RoomOrderInfo getInfoByTel(String tel) {
-        return roomOrderInfoRespository.findByTel(tel);
+    public RoomLiveInfo getById(Long id){
+        return roomLiveInfoRespository.getOne(id);
     }
 
     @Transactional
     @Override
-    public RoomOrderInfo save(RoomOrderInfo roomOrderInfo) {
-        return roomOrderInfoRespository.save(roomOrderInfo);
+    public RoomLiveInfo delete(Long id) {
+        return roomLiveInfoRespository.deleteByInfoId(id);
     }
 }
