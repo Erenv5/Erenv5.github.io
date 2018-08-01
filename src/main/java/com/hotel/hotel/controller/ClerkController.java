@@ -70,8 +70,8 @@ public class ClerkController {
                 model.addAttribute("clerk",clerk);
                 //如果员工是前台
                 if (clerk.getPermission().compareTo("fontDesk") == 0) {
-                    model.addAttribute(messageFromLive);
-                    model.addAttribute(messageFromLeave);
+                    model.addAttribute("messageFromLive",messageFromLive);
+                    model.addAttribute("messageFromLeave",messageFromLeave);
                     return new ModelAndView("clerk/fontDeskIndex", "userModel", model);
                 }
                 //如果员工是经理
@@ -103,8 +103,8 @@ public class ClerkController {
      * @return
      */
     @PostMapping("/live/{id}")
-    public ModelAndView live(@PathVariable("id") Long clerkId,
-                             @RequestParam("tel") String tel,
+    public ModelAndView live(@PathVariable(value = "id") Long clerkId,
+                             @RequestParam(value = "liveTel") String tel,
                              Model model){
         String messageFromLive;
         String messageFromLeave = null;
@@ -137,8 +137,8 @@ public class ClerkController {
      * @return
      */
     @PostMapping("/leave/{id}")
-    public ModelAndView leave(@PathVariable("id") Long clerkId,
-                              @RequestParam("tel") String tel,
+    public ModelAndView leave(@PathVariable(value = "id") Long clerkId,
+                              @RequestParam(value = "leaveTel") String tel,
                               Model model){
 
         String messageFromLeave;
@@ -170,8 +170,8 @@ public class ClerkController {
      * @return
      */
     @GetMapping("/live/{clerkId}/{infoId}")
-    public ModelAndView toLive(@PathVariable("clerkId") Long clerkId,
-                               @PathVariable("infoId") Long infoId,
+    public ModelAndView toLive(@PathVariable(value = "clerkId") Long clerkId,
+                               @PathVariable(value = "infoId") Long infoId,
                                Model model) {
         //获取各种对象
         Clerk clerk = clerkService.getById(clerkId);
@@ -192,9 +192,10 @@ public class ClerkController {
     }
 
     @GetMapping("/leave/{clerkId}/{infoId}")
-    public ModelAndView toLeave(@PathVariable("clerkId") Long clerkId,
-                                @PathVariable("infoId") Long infoId,
+    public ModelAndView toLeave(@PathVariable(value = "clerkId") Long clerkId,
+                                @PathVariable(value = "infoId") Long infoId,
                                 Model model){
+
         //获取各种对象
         Clerk clerk = clerkService.getById(clerkId);
         RoomLiveInfo roomLiveInfo = roomLiveInfoService.getById(infoId);

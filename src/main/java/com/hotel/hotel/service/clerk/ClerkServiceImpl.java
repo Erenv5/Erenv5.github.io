@@ -20,7 +20,7 @@ public class ClerkServiceImpl implements ClerkService {
 
     @Override
     public boolean passwordCorrect(String username, String password) {
-        if(clerkRepository.findByUsername(username).getPassword() == password)
+        if(clerkRepository.findByUsername(username).getPassword().compareTo(password) == 0)
             return true;
         return false;
     }
