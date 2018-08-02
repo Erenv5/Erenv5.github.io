@@ -66,13 +66,12 @@
                 <td th:text="*{room.vipMemberPrice}"></td>
                 <td th:text="*{room.status}"></td>
                 <td th:text="*{room.floor}"></td>
-                <td><a th:if="*{room.status} eq 'empty'" th:href="@{'/clerk/info/' + *{room.roomId} }">修改</a></td>
             </tr>
         </table>
     </div>
     <div class="container">
-        <a class="btn btn-primary" th:href="@{/clerk/room}">新增</a>
-        <a class="btn btn-primary" th:href="@{/clerk}">返回</a>
+        <a class="btn btn-primary" th:href="@{/clerk/room}">修改或新增</a>
+        <a class="btn btn-primary" th:href="@{/clerk/manager}">返回</a>
     </div>
 </div>
 </body>

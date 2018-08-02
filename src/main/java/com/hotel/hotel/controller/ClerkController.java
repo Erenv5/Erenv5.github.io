@@ -261,7 +261,9 @@ public class ClerkController {
     @GetMapping("/rooms")
     public ModelAndView rooms(Model model){
         List<Room> roomList = roomService.getAllRooms();
+        String message = null;
         model.addAttribute("rooms",roomList);
+        model.addAttribute("message",message);
         return new ModelAndView("clerk/manager/rooms","userModel",model);
     }
 
@@ -332,12 +334,26 @@ public class ClerkController {
             return new ModelAndView("clerk/manager/roomOperate","userModel",model);
         }
 
-
         Room room = new Room(roomId,type,status,floor,price,normMemberPrice,vipMemberPrice,remark);
         roomService.saveOrUpdateRoom(room);
         List<Room> roomList = roomService.getAllRooms();
         model.addAttribute("rooms",roomList);
         return new ModelAndView("clerk/manager/rooms","userModel",model);
+    }
+
+    @GetMapping("/manager")
+    public String manageIndex(){
+        return "clerk/managerIndex";
+    }
+
+    @GetMapping("/clerks")
+    public String clerks(){
+        return "clerk/manager/clerks";
+    }
+
+    @PostMapping("/clerk")
+    public ModelAndView clerkOp(){
+        return new ModelAndView();
     }
 
 }
