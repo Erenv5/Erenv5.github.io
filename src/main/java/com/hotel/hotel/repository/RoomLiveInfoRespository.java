@@ -7,5 +7,5 @@ public interface RoomLiveInfoRespository extends JpaRepository<RoomLiveInfo, Lon
 
     RoomLiveInfo findByTel(String tel);
 
-    RoomLiveInfo deleteByInfoId(Long id);
+    int deleteByInfoId(Long id);
 }

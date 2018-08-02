@@ -4,7 +4,8 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>空房间列表</title>
+
     <!-- Tether core CSS -->
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
 
@@ -36,42 +37,43 @@
     <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
     <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
           rel="stylesheet">
-    <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">    <title>登录</title>
+    <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
-    <div class="container blog-content-container">
-        <form th:action="@{/member/login}" method="get">
-            <br>
-            <h2 class="form-signin-heading">请登录</h2>
+<div class="container blog-content-container">
+<div class="tab-content">
+    <div class="tab-pane fade in active">
+        <table class="table table-hover">
+            <tr>
+                <th>房间号</th>
+                <th>房间类型</th>
+                <th>价格</th>
+                <th>会员价</th>
+                <th>VIP会员价</th>
+                <th>状态</th>
+                <th>楼层</th>
+                <th>操作</th>
+            </tr>
 
-            <div class="form-group col-md-5">
-                <label for="username" class="col-form-label">账号</label>
-                <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号">
-            </div>
-
-            <div class="form-group col-md-5">
-                <label for="password" class="col-form-label">密码</label>
-                <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="请输入密码" >
-            </div>
-
-            <div class="form-group col-md-5">
-                <button type="submit" class="btn btn-primary">登录</button>
-            </div>
-
-            <div class="form-group col-md-5">
-                <label th:if="*{userModel.loginMessage} ne null" th:text="*{userModel.loginMessage}" >
-            </div>
-
-            <div class="form-group col-md-5">
-                <label th:if="*{userModel.registMessage} ne null" th:text="*{userModel.registMessage}" >
-            </div>
-
-        </form>
-
-        <div class="form-group col-md-5">
-            没有账户？<a type="button" th:href="@{/regist}" class="btn btn-default">去注册</a>
-        </div>
+            <tr th:each="room : ${userModel.roomList}">
+                <td th:text="*{room.roomId}"></td>
+                <td th:text="*{room.type}"></td>
+                <td th:text="*{room.price}"></td>
+                <td th:text="*{room.normMemberPrice}"></td>
+                <td th:text="*{room.vipMemberPrice}"></td>
+                <td th:text="*{room.status}"></td>
+                <td th:text="*{room.floor}"></td>
+                <td><a th:if="*{room.status} eq 'empty'" th:href="@{'/clerk/info/' + *{room.roomId} }">修改</a></td>
+            </tr>
+        </table>
     </div>
-
+    <div class="container">
+        <a class="btn btn-primary" th:href="@{/clerk/room}">新增</a>
+        <a class="btn btn-primary" th:href="@{/clerk}">返回</a>
+    </div>
+</div>
 </body>
 </html>

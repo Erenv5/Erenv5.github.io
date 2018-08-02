@@ -226,7 +226,7 @@ public class MemberController {
         RoomOrderInfo roomOrderInfo = roomOrderInfoService.save(new RoomOrderInfo(user.getName(),user.getTelephone(),room.getRoomId(),"ordered",new Date(),null));
 
         //保存预定 Log
-        Log log = logService.save(new Log(userId,roomId,"预定信息"));
+        Log log = logService.save(new Log(userId,roomId,"预定房间"));
 
         //修改房间状态信息
         roomService.changeStatus(roomId,"ordered");

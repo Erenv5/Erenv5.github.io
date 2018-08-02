@@ -41,8 +41,9 @@ public class RoomOrderInfoServiceImpl implements RoomOrderInfoService {
 
     @Transactional
     @Override
-    public RoomOrderInfo delete(Long id) {
-        return roomOrderInfoRespository.deleteByInfoId(id);
+    public Integer delete(Long id) {
+        Integer i = roomOrderInfoRespository.deleteByInfoId(id);
+        return i;
     }
 
 

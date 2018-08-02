@@ -41,7 +41,7 @@ public class RoomLiveInfoServiceImpl implements RoomLiveInfoService {
 
     @Transactional
     @Override
-    public RoomLiveInfo delete(Long id) {
+    public int delete(Long id) {
         return roomLiveInfoRespository.deleteByInfoId(id);
     }
 }

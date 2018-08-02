@@ -44,7 +44,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">预定转入住</div>
     <div class="col-lg-6">
-        <form th:action="@{ '/clerk/live/' + ${userModel.clerk.id} }" method="post" class="input-group">
+        <form class="form-horizontal" th:action="@{ '/clerk/live/' + ${userModel.clerk.id} }" method="post" class="input-group">
             <input type="text" id="liveTel" name="liveTel" class="form-control" placeholder="输入预定手机号">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">查询</button>
@@ -52,9 +52,8 @@
         </form>
 
         <div class="form-group col-md-5">
-            <label th:if="*{userModel.messageFromLive} ne null" th:text="*{userModel.messageFromLive}" >
+            <label th:if="${userModel.messageFromLive} ne null" th:text="${userModel.messageFromLive}" >
         </div>
-
     </div>
 </div>
 
@@ -62,7 +61,7 @@
     <div class="panel-heading">结账</div>
     <div class="col-lg-6">
 
-        <form th:action="@{ '/clerk/leave/' + ${userModel.clerk.id} }" method="post" class="input-group">
+        <form class="form-horizontal" th:action="@{ '/clerk/leave/' + ${userModel.clerk.id} }" method="post" class="input-group">
             <input type="text" id="leaveTel" name="leaveTel" class="form-control" placeholder="输入预定手机号">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">查询</button>
@@ -70,7 +69,7 @@
         </form>
 
         <div class="form-group col-md-5">
-            <label th:if="*{userModel.messageFromLeave} ne null" th:text="*{userModel.messageFromLeave}" >
+            <label th:if="${userModel.messageFromLeave} ne null" th:text="${userModel.messageFromLeave}" >
         </div>
 
     </div>

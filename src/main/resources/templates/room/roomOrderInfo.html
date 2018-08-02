@@ -3,7 +3,7 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>转入住</title>
+    <title>结账</title>
     <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
 
     <!-- Bootstrap CSS -->
@@ -40,10 +40,8 @@
 </head>
 <body>
 
-<!--Model 内容包括 clerk roomOrderInfo-->
-<!--提示收取押金-->
-<!--点击转入住按钮 页面跳转至live/{clerkId}/{infoId}-->
-<!--随后页面跳转至 fontDeskIndex-->
+
+
 
 <div class="panel panel-default">
     <div class="panel-heading">查看预定信息</div>
@@ -92,10 +90,16 @@
                 </div>
             </div>
         </form>
-        <div class="container">
-            <a class="btn btn-primary" th:href="@{'/member/live/' + ${userModel.clerk.clerkId} +'/'+ ${userModel.roomOrderInfo.roomId} }">转入住</a>
-            <a class="btn btn-primary" th:href="@{/login}">退出</a>
-        </div>
+    </div>
+</div>
+<div class="container">
+    <a class="btn btn-primary" th:href="@{'/clerk/live/' + ${userModel.clerk.id} +'/'+ ${userModel.roomOrderInfo.infoId} }">转入住</a>
+    <a class="btn btn-primary" th:href="@{/clerk}">退出</a>
+</div>
+
+
+
+
 
 </body>
 </html>

@@ -7,5 +7,5 @@ public interface RoomOrderInfoRespository extends JpaRepository<RoomOrderInfo, L
 
     RoomOrderInfo findByTel(String tel);
 
-    RoomOrderInfo deleteByInfoId(Long id);
+    Integer deleteByInfoId(Long id);
 }

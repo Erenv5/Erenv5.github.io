@@ -17,5 +17,5 @@ public interface RoomLiveInfoService {
     RoomLiveInfo getById(Long id);
 
     //根据 ID 删除入住信息
-    RoomLiveInfo delete(Long id);
+    int delete(Long id);
 }

@@ -5,6 +5,8 @@ import com.hotel.hotel.repository.ClerkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class ClerkServiceImpl implements ClerkService {
 
@@ -32,6 +34,7 @@ public class ClerkServiceImpl implements ClerkService {
 
     @Override
     public Clerk getById(Long id) {
-        return clerkRepository.getOne(id);
+        Optional<Clerk> optionalClerk = clerkRepository.findById(id);
+        return optionalClerk.get();
     }
 }

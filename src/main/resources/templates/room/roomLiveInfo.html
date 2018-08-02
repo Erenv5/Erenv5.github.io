@@ -1,10 +1,110 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>结账</title>
+    <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Font-Awesome CSS -->
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+
+    <!-- NProgress CSS -->
+    <link href="../static/css/nprogress.css" th:href="@{/css/nprogress.css}" rel="stylesheet">
+
+    <!-- thinker-md CSS -->
+    <link href="../static/css/thinker-md.vendor.css" th:href="@{/css/thinker-md.vendor.css}" rel="stylesheet">
+
+    <!-- bootstrap tags CSS -->
+    <!--<link href="../static/css/bootstrap-tagsinput.css" th:href="@{/css/jquery.tagsinput.min.css}" rel="stylesheet">-->
+
+    <!-- bootstrap chosen CSS -->
+    <link href="../static/css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
+    <!---->
+    <!--toastr CSS -->
+    <link href="../static/css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
+
+    <!-- jQuery image cropping plugin CSS -->
+    <link href="../static/css/cropbox.css" th:href="@{/css/cropbox.css}" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
+          rel="stylesheet">
+    <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
+<!--Model 内容包括 clerk roomLiveInfo-->
+<!--计算价钱-->
+<!--点击按钮结账 页面跳转至leave/{clerkId}/{infoId}-->
+<!--随后页面跳转至 fontDeskIndex-->
 
+<div class="panel panel-default">
+    <div class="panel-heading">查看入住信息</div>
+    <div class="panel-body align-content-center">
+
+        <form class="form-horizontal" th:object="${userModel.roomLiveInfo}">
+            <div class="form-group">
+                <label class="col-sm-2 control-label">房间号</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{roomId}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">入住时间</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{liveTime}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">单价</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{price}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">入住人</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{name}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">入住手机号</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="*{tel}"></p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">押金</label>
+                <div class="col">
+                    <p class="form-control-static">1000</p>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-2 control-label">总价</label>
+                <div class="col">
+                    <p class="form-control-static" th:text="${userModel.price}"></p>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+<div class="container">
+    <a class="btn btn-primary" th:href="@{'/clerk/leave/' + ${userModel.clerk.id} +'/'+ ${userModel.roomLiveInfo.infoId} }">结账</a>
+    <a class="btn btn-primary" th:href="@{/clerk}">退出</a>
+</div>
 </body>
 </html>

@@ -21,7 +21,7 @@ public interface RoomService {
      * 获取所有房间信息
      * @return
      */
-    List<Room> getAllRooms(Pageable pageable);
+    List<Room> getAllRooms();
 
 
     /**
@@ -52,4 +52,11 @@ public interface RoomService {
      * @return
      */
     Room saveOrUpdateRoom(Room room);
+
+    /**
+     * ID 对应 room 是否存在
+     * @param id
+     * @return
+     */
+    boolean ifRoomEmpty(String id);
 }

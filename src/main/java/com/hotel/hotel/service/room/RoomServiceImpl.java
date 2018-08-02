@@ -21,7 +21,7 @@ public class RoomServiceImpl implements RoomService {
     }
 
     @Override
-    public List<Room> getAllRooms(Pageable pageable) {
+    public List<Room> getAllRooms() {
         return roomRespository.findAll();
     }
 
@@ -47,6 +47,13 @@ public class RoomServiceImpl implements RoomService {
     @Override
     public Room saveOrUpdateRoom(Room room) {
         return roomRespository.save(room);
+    }
+
+    @Override
+    public boolean ifRoomEmpty(String id) {
+        if(getRoomById(id).getStatus().compareTo("empty") == 0)
+            return true;
+        return false;
     }
 
 
