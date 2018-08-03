@@ -56,5 +56,20 @@ public class RoomServiceImpl implements RoomService {
         return false;
     }
 
+    @Override
+    public boolean ifRoomHourly(String id) {
+        if(getRoomById(id).getType().compareTo("hourly") == 0)
+            return true;
+        return false;
+    }
+
+    @Override
+    public boolean ifRoomExists(String id) {
+        if(roomRespository.existsById(id)){
+            return true;
+        }
+        return false;
+    }
+
 
 }

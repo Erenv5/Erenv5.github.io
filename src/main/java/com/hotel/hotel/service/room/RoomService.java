@@ -59,4 +59,9 @@ public interface RoomService {
      * @return
      */
     boolean ifRoomEmpty(String id);
+
+
+    boolean ifRoomHourly(String id);
+
+    boolean ifRoomExists(String id);
 }

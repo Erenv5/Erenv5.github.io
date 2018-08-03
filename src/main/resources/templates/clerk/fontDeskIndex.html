@@ -44,7 +44,7 @@
 <div class="panel panel-default">
     <div class="panel-heading">预定转入住</div>
     <div class="col-lg-6">
-        <form class="form-horizontal" th:action="@{ '/clerk/live/' + ${userModel.clerk.id} }" method="post" class="input-group">
+        <form class="form-horizontal input-group" th:action="@{ '/clerk/live/' + ${userModel.clerk.id} }" method="post">
             <input type="text" id="liveTel" name="liveTel" class="form-control" placeholder="输入预定手机号">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">查询</button>
@@ -61,7 +61,7 @@
     <div class="panel-heading">结账</div>
     <div class="col-lg-6">
 
-        <form class="form-horizontal" th:action="@{ '/clerk/leave/' + ${userModel.clerk.id} }" method="post" class="input-group">
+        <form class="form-horizontal input-group" th:action="@{ '/clerk/leave/' + ${userModel.clerk.id} }" method="post" >
             <input type="text" id="leaveTel" name="leaveTel" class="form-control" placeholder="输入预定手机号">
             <span class="input-group-btn">
                 <button type="submit" class="btn btn-default">查询</button>

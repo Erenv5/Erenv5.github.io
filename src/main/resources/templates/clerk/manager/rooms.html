@@ -46,6 +46,7 @@
 <div class="container blog-content-container">
 <div class="tab-content">
     <div class="tab-pane fade in active">
+        <label th:if="${userModel.message} ne null" th:text="${userModel.message}"></label>
         <table class="table table-hover">
             <tr>
                 <th>房间号</th>
@@ -55,10 +56,9 @@
                 <th>VIP会员价</th>
                 <th>状态</th>
                 <th>楼层</th>
-                <th>操作</th>
             </tr>
 
-            <tr th:each="room : ${userModel.roomList}">
+            <tr th:each="room : ${userModel.rooms}">
                 <td th:text="*{room.roomId}"></td>
                 <td th:text="*{room.type}"></td>
                 <td th:text="*{room.price}"></td>
@@ -70,7 +70,7 @@
         </table>
     </div>
     <div class="container">
-        <a class="btn btn-primary" th:href="@{/clerk/room}">修改或新增</a>
+        <a class="btn btn-primary" th:href="@{/clerk/roomop}">修改或新增</a>
         <a class="btn btn-primary" th:href="@{/clerk/manager}">返回</a>
     </div>
 </div>

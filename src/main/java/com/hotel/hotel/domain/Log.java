@@ -16,7 +16,7 @@ public class Log implements Serializable {
     private Long userId;
 
     @Column(nullable = false)
-    private String RoomId;
+    private String roomId;
 
     @Column(nullable = false)
     private String remark;
@@ -29,7 +29,7 @@ public class Log implements Serializable {
      */
     public Log(Long userId, String roomId, String remark) {
         this.userId = userId;
-        RoomId = roomId;
+        this.roomId = roomId;
         this.remark = remark;
     }
 
@@ -48,11 +48,11 @@ public class Log implements Serializable {
     }
 
     public String getRoomId() {
-        return RoomId;
+        return roomId;
     }
 
     public void setRoomId(String roomId) {
-        RoomId = roomId;
+        roomId = roomId;
     }
 
     public String getRemark() {

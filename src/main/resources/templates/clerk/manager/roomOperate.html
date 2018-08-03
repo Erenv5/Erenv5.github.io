@@ -49,53 +49,67 @@
 
 <div class="container blog-content-container">
 
-    <label th:text=""
-    <form th:action="@{/member/regist}"  method="post">
+    <form th:action="@{/clerk/room}"  method="post">
 
-        <h2 class="form-signin-heading">注册</h2>
+        <h2 class="form-signin-heading">修改或新增房间信息</h2>
 
         <div class="form-group col-md-5">
-            <label th:if="*{userModel.registMessage} ne null" th:text="*{userModel.registMessage}" >
+            <p> 注：只可对空房间进行操作 </p>
         </div>
 
         <div class="form-group col-md-5">
-            <label for="username" class="col-form-label">账号</label>
-            <input type="text" class="form-control" id="username" name="username" maxlength="50" placeholder="请输入账号，至少3个字符，至多20个">
+            <label for="roomId" class="col-form-label">房间号</label>
+            <input type="text" class="form-control" id="roomId" name="roomId" maxlength="10" placeholder="请输入房间号">
         </div>
         <div class="form-group col-md-5">
-            <label for="telephone" class="col-form-label">手机</label>
-            <input type="tel" class="form-control" id="telephone" name="telephone" maxlength="20" placeholder="请输入手机号">
+            <label for="floor" class="col-form-label">楼层</label>
+            <input type="tel" class="form-control" id="floor" name="floor" maxlength="20" placeholder="请输入楼层">
         </div>
+
+
+        <!--两个下拉框-->
         <div class="form-group col-md-5">
-            <label class="col-form-label">性别</label> <br>
+            <label class="col-form-label">类型</label> <br>
             <div class="custom-radio">
                 <label class="btn btn-default">
-                    <input type="radio" name="sex" id="male" value="male"> 男
+                    <input type="radio" name="type" id="single" value="single" checked> 单人房
                 </label>
                 <label class="btn btn-default">
-                    <input type="radio" name="sex" id="female" value="female"> 女
+                    <input type="radio" name="type" id="double" value="double"> 双人房
                 </label>
                 <label class="btn btn-default">
-                    <input type="radio" name="sex" id="other" value="other" checked> 其他
+                    <input type="radio" name="type" id="quad" value="other" > 四人房
                 </label>
-
+                <label class="btn btn-default">
+                    <input type="radio" name="type" id="hourly" value="hourly"> 钟点房
+                </label>
+                <label class="btn btn-default">
+                    <input type="radio" name="type" id="pres" value="pres"> 总统套房
+                </label>
             </div>
         </div>
         <div class="form-group col-md-5">
-            <label for="email" class="col-form-label">邮箱</label>
-            <input type="email" class="form-control" id="email" name="email" maxlength="50" placeholder="请输入邮箱（非必填）">
+            <label class="col-form-label">状态</label>
+            <div class="custom-radio">
+                <label class="btn btn-default">
+                    <input type="radio" name="status" id="empty" value="empty" checked> empty
+                </label>
+            </div>
+        </div>
+
+
+
+        <div class="form-group col-md-5">
+            <label for="price" class="col-form-label">价格</label>
+            <input type="text" class="form-control" id="price" name="price" maxlength="20" placeholder="请输入价格" >
         </div>
         <div class="form-group col-md-5">
-            <label for="name" class="col-form-label">姓名</label>
-            <input type="text" class="form-control" id="name" name="name" maxlength="20" placeholder="请输入姓名，至少2个字符，至多20个" >
+            <label for="normMemberPrice" class="col-form-label">普通会员价格</label>
+            <input type="text" class="form-control" id="normMemberPrice" name="normMemberPrice" maxlength="30" placeholder="请输入普通会员价格" >
         </div>
         <div class="form-group col-md-5">
-            <label for="password" class="col-form-label">密码</label>
-            <input type="password" class="form-control" id="password" name="password" maxlength="30" placeholder="请输入密码，字母或特殊符号和数字结合" >
-        </div>
-        <div class="form-group col-md-5">
-            <label for="address" class="col-form-label">地址</label>
-            <input type="text" class="form-control" id="address" name="address" placeholder="请输入地址（非必填）" >
+            <label for="vipMemberPrice" class="col-form-label">vip会员价格</label>
+            <input type="text" class="form-control" id="vipMemberPrice" name="vipMemberPrice" placeholder="请输入vip会员价格" >
         </div>
 
         <div class="form-group col-md-5">
@@ -105,6 +119,7 @@
 
         <div class="form-group">
             <button type="submit" class="btn btn-primary">提交</button>
+            <a th:href="@{/clerk/rooms}" class="btn btn-default" >返回</a>
         </div>
     </form>
 </div>

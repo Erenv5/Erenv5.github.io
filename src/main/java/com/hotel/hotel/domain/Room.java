@@ -13,8 +13,6 @@ public class Room implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    private final String ORDERED = new String("ordered");
-
     //手动赋值主键生成策略
     @Id
     @GeneratedValue(generator = "roomId")
@@ -156,4 +154,5 @@ public class Room implements Serializable {
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
 }

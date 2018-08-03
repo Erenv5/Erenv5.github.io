@@ -4,7 +4,9 @@ import com.hotel.hotel.domain.Clerk;
 import com.hotel.hotel.repository.ClerkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -37,4 +39,23 @@ public class ClerkServiceImpl implements ClerkService {
         Optional<Clerk> optionalClerk = clerkRepository.findById(id);
         return optionalClerk.get();
     }
+
+    @Override
+    public List<Clerk> getAll() {
+        List<Clerk> clerks = clerkRepository.findAll();
+        return clerks;
+    }
+
+    @Transactional
+    @Override
+    public Clerk saveAndUpdate(Clerk clerk) {
+        return clerkRepository.save(clerk);
+    }
+
+    @Override
+    public void delete(Long id) {
+        clerkRepository.delete(clerkRepository.getOne(id));
+    }
+
+
 }

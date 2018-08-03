@@ -4,6 +4,8 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class DifferentDaysUtil {
+
+
     public static int differentDays(Date date1,Date date2)
     {
         Calendar cal1 = Calendar.getInstance();

@@ -1,10 +1,95 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>空房间列表</title>
+
+    <!-- Tether core CSS -->
+    <link href="../static/css/tether.min.css" th:href="@{/css/tether.min.css}" rel="stylesheet">
+
+    <!-- Bootstrap CSS -->
+    <link href="../static/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+
+    <!-- Font-Awesome CSS -->
+    <link href="../static/css/font-awesome.min.css" th:href="@{/css/font-awesome.min.css}" rel="stylesheet">
+
+    <!-- NProgress CSS -->
+    <link href="../static/css/nprogress.css" th:href="@{/css/nprogress.css}" rel="stylesheet">
+
+    <!-- thinker-md CSS -->
+    <link href="../static/css/thinker-md.vendor.css" th:href="@{/css/thinker-md.vendor.css}" rel="stylesheet">
+
+    <!-- bootstrap tags CSS -->
+    <!--<link href="../static/css/bootstrap-tagsinput.css" th:href="@{/css/jquery.tagsinput.min.css}" rel="stylesheet">-->
+
+    <!-- bootstrap chosen CSS -->
+    <link href="../static/css/component-chosen.min.css" th:href="@{/css/component-chosen.min.css}" rel="stylesheet">
+    <!---->
+    <!--toastr CSS -->
+    <link href="../static/css/toastr.min.css" th:href="@{/css/toastr.min.css}" rel="stylesheet">
+
+    <!-- jQuery image cropping plugin CSS -->
+    <link href="../static/css/cropbox.css" th:href="@{/css/cropbox.css}" rel="stylesheet">
+
+    <!-- Custom styles -->
+    <link href="../static/css/style.css" th:href="@{/css/style.css}" rel="stylesheet">
+    <link href="../static/css/thymeleaf-bootstrap-paginator.css" th:href="@{/css/thymeleaf-bootstrap-paginator.css}"
+          rel="stylesheet">
+    <link href="../static/css/blog.css" th:href="@{/css/blog.css}" rel="stylesheet">
+
+    <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
 </head>
 <body>
 
+<div class="container blog-content-container">
+
+<form th:action="@{/clerk/clerk}"  method="post">
+
+    <h2 class="form-signin-heading">修改或新增员工信息</h2>
+
+
+    <div class="form-group col-md-5">
+        <label for="name" class="col-form-label">员工姓名</label>
+        <input type="text" class="form-control" id="name" name="name" maxlength="10" placeholder="请输入员工姓名">
+    </div>
+    <div class="form-group col-md-5">
+        <label for="username" class="col-form-label">员工账号</label>
+        <input type="tel" class="form-control" id="username" name="username" maxlength="20" placeholder="请输入员工账号">
+    </div>
+    <div class="form-group col-md-5">
+        <label for="password" class="col-form-label">员工密码</label>
+        <input type="password" class="form-control" id="password" name="password" maxlength="20" placeholder="请输入员工密码" >
+    </div>
+
+    <!--两个下拉框-->
+    <div class="form-group col-md-5">
+        <label class="col-form-label">员工权限</label> <br>
+        <div class="custom-radio">
+            <label class="btn btn-default">
+                <input type="radio" name="permission" id="fontDesk" value="fontDesk" checked> 前台
+            </label>
+            <label class="btn btn-default">
+                <input type="radio" name="permission" id="manager" value="manager"> 经理
+            </label>
+
+        </div>
+    </div>
+
+
+
+    <div class="form-group col-md-5">
+        <label for="remark" class="col-form-label">备注</label>
+        <input type="text" class="form-control" id="remark" name="remark" placeholder="请输入备注（非必填）" >
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn btn-primary">提交</button>
+        <a th:href="@{/clerk/clerks}" class="btn btn-default" >返回</a>
+    </div>
+</form>
+</div>
 </body>
 </html>

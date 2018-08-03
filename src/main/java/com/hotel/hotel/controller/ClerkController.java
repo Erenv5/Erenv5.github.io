@@ -161,15 +161,32 @@ public class ClerkController {
             return new ModelAndView("clerk/fontDeskIndex","userModel",model);
         }
 
+
+
         // 手机号有入住信息，到的页面点结账
         RoomLiveInfo roomLiveInfo = roomLiveInfoService.getByTel(tel);
         model.addAttribute("roomLiveInfo",roomLiveInfo);
 
-        //计算总价并传入 Model
+
+
+        //房间不是钟点房计算总价并传入 Model
         Date date = new Date();
         int days = DifferentDaysUtil.differentDays(roomLiveInfo.getLiveTime(),date);
-        if(days == 0)
-            days =1;
+        days++;
+
+
+        //通过 roomD 查询房间是不是钟点房
+        if(roomService.ifRoomHourly(roomLiveInfo.getRoomId())){
+            //根据小时计算
+            long price = Long.parseLong(roomLiveInfo.getPrice()) * days * 24;
+            String prices = String.valueOf(price);
+            System.out.println(prices);
+            model.addAttribute("price",prices);
+
+            return new ModelAndView("room/roomLiveInfo","userModel",model);
+
+        }
+
         long price = Long.parseLong(roomLiveInfo.getPrice()) * days;
         String prices = String.valueOf(price);
         System.out.println(prices);
@@ -255,6 +272,7 @@ public class ClerkController {
 
     /**
      * 获取所有房间信息
+     * 返回 房间列表 页面
      * @param model
      * @return
      */
@@ -282,8 +300,8 @@ public class ClerkController {
     /**
      * 转到对应操作
      *
-     * @param roomId    需要输入对的 ID
-     * @param model
+     * 需要输入对的 ID
+     * @param
      * @return
      */
 //    @GetMapping("/roomOp/{id}")
@@ -302,6 +320,13 @@ public class ClerkController {
 //        model.addAttribute("log",log);
 //        return new ModelAndView("clerk/manager/logOperate");
 //    }
+
+
+    @GetMapping("/roomop")
+    public String roomOp(){
+        return "clerk/manager/roomOperate";
+    }
+
 
     /**
      * 由 roomOperate 过来
@@ -328,15 +353,23 @@ public class ClerkController {
                                @RequestParam("price") String price,
                                @RequestParam("remark") String remark,
                                Model model){
-        if(!roomService.ifRoomEmpty(roomId)){
-            String message = "房间不为空，不能修改！";
-            model.addAttribute("message",message);
-            return new ModelAndView("clerk/manager/roomOperate","userModel",model);
-        }
+        String message;
 
+        //当房间存在，即修改房间信息时
+        if(roomService.ifRoomExists(roomId)) {
+            if (!roomService.ifRoomEmpty(roomId)) {
+                message = "房间不为空，不能修改！";
+                model.addAttribute("message", message);
+                List<Room> roomList = roomService.getAllRooms();
+                model.addAttribute("rooms", roomList);
+                return new ModelAndView("clerk/manager/rooms", "userModel", model);
+            }
+        }
+        message = "房间信息更新成功";
         Room room = new Room(roomId,type,status,floor,price,normMemberPrice,vipMemberPrice,remark);
         roomService.saveOrUpdateRoom(room);
         List<Room> roomList = roomService.getAllRooms();
+        model.addAttribute("message",message);
         model.addAttribute("rooms",roomList);
         return new ModelAndView("clerk/manager/rooms","userModel",model);
     }
@@ -347,13 +380,45 @@ public class ClerkController {
     }
 
     @GetMapping("/clerks")
-    public String clerks(){
-        return "clerk/manager/clerks";
+    public ModelAndView clerks(Model model){
+        model.addAttribute("message",null);
+        List<Clerk> clerks = clerkService.getAll();
+        model.addAttribute("clerks",clerks);
+        return new ModelAndView("clerk/manager/clerks","userModel",model);
     }
 
     @PostMapping("/clerk")
-    public ModelAndView clerkOp(){
-        return new ModelAndView();
+    public ModelAndView clerk(@RequestParam("name") String name,
+            @RequestParam("username") String username,
+            @RequestParam("password") String password,
+            @RequestParam("permission") String permission,
+            @RequestParam("remark") String remark,
+            Model model){
+        if(clerkService.usernameExists(username)){
+            model.addAttribute("message","用户名已存在");
+            Clerk clerk = new Clerk(name,username,password,permission,remark);
+            model.addAttribute("clerks",clerkService.getAll());
+            return new ModelAndView("clerk/manager/clerks","userModel",model);
+        }
+
+        model.addAttribute("message","员工信息更新成功");
+        Clerk clerk = new Clerk(name,username,password,permission,remark);
+        clerkService.saveAndUpdate(clerk);
+        model.addAttribute("clerks",clerkService.getAll());
+        return new ModelAndView("clerk/manager/clerks","userModel",model);
+    }
+
+    @GetMapping("/clerkop")
+    public String clerkOp(){
+        return "clerk/manager/clerkOperate";
+    }
+
+    @GetMapping("/clerkdel/{id}")
+    public ModelAndView clerkDel(@PathVariable("id") Long id, Model model){
+        clerkService.delete(id);
+        model.addAttribute("message","删除成功");
+        model.addAttribute("clerks",clerkService.getAll());
+        return new ModelAndView("clerk/manager/clerks","userModel",model);
     }
 
 }
